@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "Package: pr\nType: Package\nTitle: Bonferroni Q-test confidence interval.\nVersion: 0.1.0\nAuthor: Jan Philipp Woeltjen\nMaintainer: The package maintainer <j.p.woeltjen@gmail.com>\nDescription: Implements the Bonferroni confidence interval for the coefficient of a linear model with a persistent regressor. \n    Use four spaces when indenting paragsraphs within the Description.\nLicense: What license is it under?\nEncoding: UTF-8\nLazyData: true\n",
+    "created" : 1560520609360.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3484162041",
+    "id" : "D0A596CA",
+    "lastKnownWriteTime" : 1560866487,
+    "last_content_update" : 1560866487913,
+    "path" : "~/Desktop/PersistentRegressors/pr/DESCRIPTION",
+    "project_path" : "DESCRIPTION",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "dcf"
+}

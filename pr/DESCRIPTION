@@ -1,0 +1,11 @@
+Package: pr
+Type: Package
+Title: Bonferroni Q-test confidence interval.
+Version: 0.1.0
+Author: Jan Philipp Woeltjen
+Maintainer: The package maintainer <j.p.woeltjen@gmail.com>
+Description: Implements the Bonferroni confidence interval for the coefficient of a linear model with a persistent regressor. 
+    Use four spaces when indenting paragsraphs within the Description.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true

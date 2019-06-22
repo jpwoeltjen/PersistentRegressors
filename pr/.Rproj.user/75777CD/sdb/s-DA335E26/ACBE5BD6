@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(data.table)\n\nrho_ci <- function(r, x, lags, level = c(\"0.95\", \"0.90\", \"0.80\")) {\n\n  level <- match.arg(level)\n\n  # load tables\n  switch(level,\n         \"0.95\" = df <- pr::df_gls95,\n         \"0.90\" = df <- pr::df_gls90,\n         \"0.80\"  = df <- pr::df_gls80)\n\n\n  N <- length(x)\n\n  rho_gls <- 1-7/(N-1)\n  y <- x - c(0,rho_gls*x[1:(N-1)])\n  x_prime <- c(1,rep(1-rho_gls, (N-1)))\n\n  # estimate linear model without intercept\n  lm_mugls <- lm(y~x_prime -1)\n  smry_mugls <- summary(lm_mugls)\n\n  mu_gls <- smry_mugls$coefficients[1,1]\n  x_bar <-  x - mu_gls\n  x_bar_diff <- c(NA, diff(x_bar))\n\n  X <- x_bar_diff\n  X <- cbind(X, shift(x_bar, n=1, fill=NA, type=\"lag\"))\n  if (lags>1){\n    for (lag in 1:(lags-1)){\n      X <- cbind(X, shift(x_bar_diff, n=lag, fill=NA, type=\"lag\"))\n\n    }\n  }\n  X <- na.omit(X)\n\n  # estimate linear model without intercept\n  lm_dfgls <- lm( X[,1]~ X[,-1]  -1)\n  smry_dfgls <- summary(lm_dfgls)\n  df_gls <- smry_dfgls$coefficients[1,\"t value\"]\n\n  table_df_gls <- as.numeric(row.names(df))\n  df_gls_lookup <- table_df_gls[which.min(abs(table_df_gls - c(df_gls)) )]\n\n\n  ci <- c(df[as.character(df_gls_lookup),1][[1]], df[as.character(df_gls_lookup),2][[1]])\n  ci_rho <- c(1+ci[[1]]/(N-1), 1+ci[[2]]/(N-1))\n\n  return(c(ci_rho, ci))\n}\n",
+    "created" : 1560874682807.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4033197531",
+    "id" : "ACBE5BD6",
+    "lastKnownWriteTime" : 1560875858,
+    "last_content_update" : 1560875858869,
+    "path" : "~/Desktop/PersistentRegressors/pr/R/rhoConfidenceInterval.R",
+    "project_path" : "R/rhoConfidenceInterval.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 16,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
