@@ -60,12 +60,12 @@ smry1 <- summary(lm1)
 beta = smry1$coefficients[2,1]
 t_stat = smry1$coefficients[2,3]
 
-rho_ci_outcome <- rho_ci2(x, lags=1, level="0.95", max_lags=6)
+rho_ci_outcome <- rho_ci(x, lags=1, level="0.95", max_lags=6)
 opt_lags <- rho_ci_outcome[6]
 rho_ci_bonferroni <- rho_ci_outcome[1:2]
 c_ci_bonferroni <- rho_ci_outcome[3:4]
 
-t_test_reliable <- sizeDistortionTest2(r, x, lags=opt_lags)
+t_test_reliable <- sizeDistortionTest(r, x, lags=opt_lags)
 
 bonferroniQ_outcome <- bonferroniQci(r, x, lags=opt_lags)
 
@@ -110,12 +110,12 @@ smry1 <- summary(lm1)
 beta = smry1$coefficients[2,1]
 t_stat = smry1$coefficients[2,3]
 
-rho_ci_outcome <- rho_ci2(x, lags=1, level="0.95", max_lags=6)
+rho_ci_outcome <- rho_ci(x, lags=1, level="0.95", max_lags=6)
 opt_lags <- rho_ci_outcome[6]
 rho_ci_bonferroni <- rho_ci_outcome[1:2]
 c_ci_bonferroni <- rho_ci_outcome[3:4]
 
-t_test_reliable <- sizeDistortionTest2(r, x, lags=opt_lags)
+t_test_reliable <- sizeDistortionTest(r, x, lags=opt_lags)
 
 bonferroniQ_outcome <- bonferroniQci(r, x, lags=opt_lags)
 
@@ -158,12 +158,12 @@ smry1 <- summary(lm1)
 beta = smry1$coefficients[2,1]
 t_stat = smry1$coefficients[2,3]
 
-rho_ci_outcome <- rho_ci2(x, lags=1, level="0.95", max_lags=6)
+rho_ci_outcome <- rho_ci(x, lags=1, level="0.95", max_lags=6)
 opt_lags <- rho_ci_outcome[6]
 rho_ci_bonferroni <- rho_ci_outcome[1:2]
 c_ci_bonferroni <- rho_ci_outcome[3:4]
 
-t_test_reliable <- sizeDistortionTest2(r, x, lags=opt_lags)
+t_test_reliable <- sizeDistortionTest(r, x, lags=opt_lags)
 
 bonferroniQ_outcome <- bonferroniQci(r, x, lags=opt_lags)
 
@@ -206,12 +206,12 @@ smry1 <- summary(lm1)
 beta = smry1$coefficients[2,1]
 t_stat = smry1$coefficients[2,3]
 
-rho_ci_outcome <- rho_ci2(x, lags=1, level="0.95", max_lags=6)
+rho_ci_outcome <- rho_ci(x, lags=1, level="0.95", max_lags=6)
 opt_lags <- rho_ci_outcome[6]
 rho_ci_bonferroni <- rho_ci_outcome[1:2]
 c_ci_bonferroni <- rho_ci_outcome[3:4]
 
-t_test_reliable <- sizeDistortionTest2(r, x, lags=opt_lags)
+t_test_reliable <- sizeDistortionTest(r, x, lags=opt_lags)
 
 bonferroniQ_outcome <- bonferroniQci(r, x, lags=opt_lags)
 

@@ -98,17 +98,6 @@ the alternative to construct the confidence interval for c.
 - Implemented in R package{pr}.
 
 
-# Motivating the Importance of Efficient Tests
-- Once inferred that the t-test is size distorted, we could adjust the rejection region to account for the size distortion. This, however, is very inefficient, i.e., we need a lot of data to reject the null at a decent size.
-
-- Testing efficiency has obviously importance when data is sparse as is the case when predicting 
- index returns. 
-
-- When developing trading strategies, however, one could increase the data amount by looking at the cross-section of individual stocks.
-This could get us above a threshold where first order asymptotics become reliable.
-
-- One could imagine a dynamic trading strategy that takes into account the changing nature of the market. Predictive regressions are performed on an ongoing basis and updated as soon as new information becomes available (Online Learning). Higher Pitman efficiency of our tests could give us the advantage of earlier detection of market anomalies. 
-
 
 # Developing a More Efficient Test 
 + To improve confidence of inference, we need to increase the signal-to-noise ratio. Here, we focus on reducing the noise. 
@@ -157,7 +146,7 @@ Q\left(\beta_{0}, \rho\right)=\frac{\sum_{t=1}^{T} x_{t-1}^{\mu}\left[r_{t}-\bet
 
 - $x_{t}-\rho x_{t-1} = e_{t}+\gamma$
 
-- $\beta_{u e}=\sigma_{u e} / \sigma_{e}^{2}$ is the correlation between shocks.
+- $\beta_{u e}=\sigma_{u e} / \sigma_{e}^{2}$ tells us something about the relation between shocks of (1) and (2).
 
 - The equation above can be interpreted as regressing the de-noised returns onto the regressor x where we exploit the information contained in $\rho$ and the correlation of the shocks. 
 
@@ -187,9 +176,9 @@ $$P\left(\bigcup_{i=1}^{n} E_{i}\right) \leq \sum_{i=1}^{n} P\left(E_{i}\right)$
 where $P\left(E_{i}\right)$ is the probability that $E_{i}$ is true and $P\left(\bigcup_{i=1}^{n} E_{i}\right)$ is the probability that at least one of $E_{1}, E_{2}, \ldots, E_{n}$ is true ^[Weisstein, Eric W. "Bonferroni Inequalities." From MathWorld--A Wolfram Web Resource. http://mathworld.wolfram.com/BonferroniInequalities.html]. 
 
 # Bonferroni Confidence Intervals (Cont.)
-- To get the confidence interval for $\rho$ CY need a unit root test statistic.
+- To get the confidence interval for $\rho$, CY need a unit root test statistic.
 - Since they suspect $\rho$ in the neighborhood of 1, the DF-GLS test statistic^[For a detailed description of the DF-GLS statistic see the appendix] is a good choice.
-- To get the confidence interval for $\beta$ they use the Q-test since they know it to be more powerful than the t-test given true $\rho$ and  hope it remains more powerful for other $\rho$ as well. Whether this hope is met will only be seen by Monte Carlo evidence. 
+- To get the confidence interval for $\beta$ they use the Q-test since they know it to be more powerful than the t-test given true $\rho$ by the Neyman–Pearson Lemma. They hope it remains more powerful for other $\rho$ as well. Whether this hope is met will be seen by nummerical analysis. 
 
 
 # Bonferroni Confidence Intervals (Cont.)
@@ -198,7 +187,11 @@ $$C_{\beta | \rho}\left(\alpha_{2}\right)=\left[\underline{\beta}\left(\rho, \al
 
 - where $$\begin{array}{l}{\qquad \beta(\rho)=\frac{\sum_{t=1}^{T} x_{t-1}^{\mu}\left[r_{t}-\beta_{u e}\left(x_{t}-\rho x_{t-1}\right)\right]}{\sum_{t=1}^{T} x_{t-1}^{\mu 2}} )} \\ {\underline{\beta}\left(\rho, \alpha_{2}\right)=\beta(\rho)-z_{\alpha_{2} / 2} \sigma_{u}\left(\frac{1-\delta^{2}}{\sum_{t=1}^{T} x_{t-1}^{\mu 2}}\right)^{1 / 2}} \\ {\overline{\beta}\left(\rho, \alpha_{2}\right)=\beta(\rho)+z_{\alpha_{2} / 2} \sigma_{u}\left(\frac{1-\delta^{2}}{\sum_{t=1}^{T} x_{t-1}^{\mu 2}}\right)^{1 / 2}} \\ {z_{\alpha_{2} / 2} \text { denotes the } 1-\alpha_{2} / 2 \text { quantile of the standard normal distribution. }}\end{array}$$
 
-- $C_{\rho}\left(\alpha_{1}\right)=\left[\underline{\rho}\left(\underline{\alpha}_{1}\right), \overline{\rho}\left(\overline{\alpha}_{1}\right)\right]$ denotes the confidence interval for $\rho$,
+
+
+
+# Bonferroni Confidence Intervals (Cont.)
+- Let $C_{\rho}\left(\alpha_{1}\right)=\left[\underline{\rho}\left(\underline{\alpha}_{1}\right), \overline{\rho}\left(\overline{\alpha}_{1}\right)\right]$ denote the confidence interval for $\rho$,
 
 - where $\underline{\alpha}_{1}=\operatorname{Pr}\left(\rho<\underline{\rho}\left(\underline{\alpha}_{1}\right)\right)$, $\overline{\alpha}_{1}=\operatorname{Pr}\left(\rho>\overline{\rho}\left(\overline{\alpha}_{1}\right)\right)$, and $\alpha_{1}=\underline{\alpha}_{1}+\overline{\alpha}_{1}$.
 
@@ -242,6 +235,26 @@ C_{\beta}(\alpha)=\left[\underline{\beta}\left(\overline{\rho}\left(\overline{\a
 # Comparing Power
 - All tests considered should reject alternatives of the form $\beta=\beta_{0}+b$, where b is some constant, almost surely as $T\to\infty$. 
 - More interesting are alternatives of the form $\beta=\beta_{0}+b / T$, where b is again some constant. 
+- Under the local alternative \begin{equation}
+\begin{aligned} Q\left(\beta_{0}, \widetilde{\rho}\right)=& \frac{b\left(T^{-2} \sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{1 / 2}}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}}+\frac{\delta(\widetilde{c}-c)\left(T^{-2} \sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{1 / 2}}{\omega\left(1-\delta^{2}\right)^{1 / 2}} \\+& \frac{T^{-1} \sum_{t=1}^{T} x_{t-1}^{\mu}\left(u_{t}-\sigma_{u e} /\left(\sigma_{e} \omega\right) v_{t}\right)+\frac{1}{2} \sigma_{u e} /\left(\sigma_{e} \omega\right)\left(\omega^{2}-\sigma_{v}^{2}\right)}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}\left(T^{-2} \sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{1 / 2}} \end{aligned}
+\end{equation}
+
+- where $\widetilde{c}=T(\widetilde{\rho}-1)$
+
+# Comparing Power (Cont.)
+\begin{equation}
+Q\left(\beta_{0}, \widetilde{\rho}\right) \Rightarrow \frac{b \omega \kappa_{c}}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}}+\frac{\delta(\widetilde{c}-c) \kappa_{c}}{\left(1-\delta^{2}\right)^{1 / 2}}+Z
+\end{equation}
+
+- The power function for a right-tailed test is \begin{equation}
+\pi_{Q}(b)=\mathrm{E}\left[\Phi\left(z_{\alpha}-\frac{b \omega \kappa_{c}}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}}-\frac{\delta(\widetilde{c}-c) \kappa_{c}}{\left(1-\delta^{2}\right)^{1 / 2}}\right)\right]
+\end{equation}
+
+- Where $\Phi(z)$ is one minus the standard normal CDF, $z_{\alpha}$ is the $1-\alpha$ quantile.
+- The expectation is taken over the distribution of $\left(W_{e}(s), J_{c}(s)\right)$.
+
+# Plotting the Power
+
 
 ![Null: $\beta=\beta_{0}$ against local alternatives: $b=T\left(\beta-\beta_{0}\right)>0$ from Campbell and Yogo (2006)](power.png "text"){ width=70% }
 
@@ -253,7 +266,7 @@ C_{\beta}(\alpha)=\left[\underline{\beta}\left(\overline{\rho}\left(\overline{\a
 3. A Bonferroni test based on the DF-GLS test and the Q-test.
 
 # Analysis of the Power Gain (Cont.)
-## $$c = -2 \text{ and } \rho = -0.95$$
+## $$c = -2 \text{ and } \delta = -0.95$$
 
 - Pitman efficiency (relative number of observations needed to achieve 50% power) of test 1 relative to test 2 is 1.03. 
 - Pitman efficiency of test 2 relative to test 3 is 1.20.  
@@ -261,16 +274,16 @@ C_{\beta}(\alpha)=\left[\underline{\beta}\left(\overline{\rho}\left(\overline{\a
 - Pitman efficiency of the unrefined relative to the refined Bonferroni Q-test is 1.62.
 
 # Analysis of the Power Gain (Cont.)
-## $$c = -20 \text{ and } \rho = -0.95$$
+## $$c = -20 \text{ and } \delta = -0.95$$
 
 - Pitman efficiency of test 1 relative to test 2 is 1.07. 
 - Pitman efficiency of test 2 relative to test 3 is 1.03. 
 - Pitman efficiency of the unrefined relative to the refined Bonferroni t-test is 1.23.
-- Pitman efficiency of Bonferroni Q-test is 1.55 .
+- Pitman efficiency of the unrefined relative to the refined Bonferroni Q-test is 1.55 .
 
 # Analysis of the Power Gain (Cont.)
 
-- When the regressor highly persistent, the use of the Q-test rather than the t-test is a relatively important source of power gain for the Bonferroni Q-test.
+- When the regressor is highly persistent, the use of the Q-test rather than the t-test is a relatively important source of power gain for the Bonferroni Q-test.
 - When the predictor variable is less persistent, the use of the DF-GLS test rather than the ADF test is a relatively important source of power gain for the Bonferroni Q-test. 
 - Bonferroni refinement is an especially important source of power gain for the Bonferroni Q-test since it tries to exploit information about $\rho$. This makes its confidence interval for $\beta$ given $\rho$ more sensitive to $\rho$ resulting in a too conservative Bonferroni test without the refinement.
 
@@ -279,7 +292,7 @@ C_{\beta}(\alpha)=\left[\underline{\beta}\left(\overline{\rho}\left(\overline{\a
 
 
 \begin{table}[ht]
-\caption{Finite-sample rejection rates for tests of predictability}
+\caption{Finite-sample rejection rates for right-tailed tests of predictability at $\alpha$=0.05}
 \centering
 \begin{tabular}{rrrrrrrr}
   \hline
@@ -359,7 +372,7 @@ Qua & ep & -0.99 & [0.79,1.015] & 1.51 & 0 & 0.102 & [-0.051,0.203] \\
 
 # R Implementation
 
-- All source code is available at http://
+- All source code is available at https://github.com/jpwoeltjen/PersistentRegressors
 - Includes a R package that implements the methods discussed called pr (build it from source).
 - Furthermore refer to the appendix for a mathematical implementation of the tests. 
 
@@ -433,84 +446,3 @@ predictability’’. Unpublished working paper. University of Pennsylvania.]
 - The 90% Bonferroni confidence interval $[\underline{\beta}(\overline{\rho}), \overline{\beta}(\underline{\rho})]$ corresponds to a 10% two-sided test or a 5% one-sided test of the null hypothesis $\beta=0$.
 
 
-# Finite Sample Rejection Rates (10,000 Monte Carlo runs)
-
-
-\begin{table}[ht]
-\caption{Finite-sample rejection rates for tests of predictability}
-\centering
-\begin{tabular}{rrrrrrrr}
-  \hline
- & Obs & c & $\rho$ & $\delta$ & T-test & Bonf.Q-test & Q-test \\ 
-  \hline
-1 & 50 & 0 & 1.000 & -0.95 & 0.4160 & 0.0826 & 0.0483 \\ 
-  2 & 50 & 0 & 1.000 & -0.75 & 0.2916 & 0.0837 & 0.0515 \\ 
-  3 & 50 & -2 & 0.961 & -0.95 & 0.2714 & 0.0868 & 0.0482 \\ 
-  4 & 50 & -2 & 0.961 & -0.75 & 0.2079 & 0.0881 & 0.0532 \\ 
-  5 & 50 & -20 & 0.608 & -0.95 & 0.0977 & 0.1206 & 0.0515 \\ 
-  6 & 50 & -20 & 0.608 & -0.75 & 0.0840 & 0.1078 & 0.0484 \\ 
-  7 & 100 & 0 & 1.000 & -0.95 & 0.4217 & 0.0616 & 0.0480 \\ 
-  8 & 100 & 0 & 1.000 & -0.75 & 0.2930 & 0.0616 & 0.0497 \\ 
-  9 & 100 & -2 & 0.980 & -0.95 & 0.2698 & 0.0587 & 0.0505 \\ 
-  10 & 100 & -2 & 0.980 & -0.75 & 0.2104 & 0.0588 & 0.0489 \\ 
-  11 & 100 & -20 & 0.802 & -0.95 & 0.1063 & 0.0622 & 0.0471 \\ 
-  12 & 100 & -20 & 0.802 & -0.75 & 0.0874 & 0.0514 & 0.0500 \\ 
-  13 & 250 & 0 & 1.000 & -0.95 & 0.4259 & 0.0476 & 0.0483 \\ 
-  14 & 250 & 0 & 1.000 & -0.75 & 0.2970 & 0.0506 & 0.0536 \\ 
-  15 & 250 & -2 & 0.992 & -0.95 & 0.2866 & 0.0507 & 0.0481 \\ 
-  16 & 250 & -2 & 0.992 & -0.75 & 0.2092 & 0.0466 & 0.0492 \\ 
-  17 & 250 & -20 & 0.920 & -0.95 & 0.1080 & 0.0406 & 0.0517 \\ 
-  18 & 250 & -20 & 0.920 & -0.75 & 0.0944 & 0.0369 & 0.0501 \\ 
-   \hline
-\end{tabular}
-\end{table}
-
-
-# Results
-
-\begin{table}[ht]
-\caption{Empirical results \newline
-Data was taken from Amit Goyal's Website. Stock returns are the SP 500 index log-returns from 1926 to 2017 from the Center for Research in Security Press (CRSP) minus the rolled over 3-month T-bill rate. ep is the log 10 year moving average earnings/price ratio (1926 to 2017). dp is the log dividend/price ratio (1926 to 2017). tbl is the 3-month T-bill rate (1952 to 2017). tms is the term-spread between long-term government bonds and tbl (1952 to 2017).}
-
-\centering
-\begin{tabular}{llrlrrrl}
-  \hline
- Prd & Regr & $\hat{\delta}$ &  CI $\hat{\rho}$ &  T-stat & Pt  & $\hat{\beta}$ &  CI $\hat{\beta}$ \\
-  \hline
-Ann & ep & -0.97 & [0.827,0.979] & 2.12 & 0 & 0.114 & [-0.01,0.18] \\ 
-  Ann & dp & -0.86 & [0.875,0.986] & 0.97 & 0 & 0.042 & [-0.069,0.107] \\ 
-  Ann & tbl & 0.08 & [0.853,0.908] & -0.41 & 1 & -0.279 & [-0.125,0.075] \\ 
-  Ann & tms & -0.06 & [0.454,0.575] & 0.96 & 1 & 1.297 & [-0.071,0.275] \\ 
-Qua & ep & -0.98 & [0.973,1.002] & 3.16 & 0 & 0.048 & [0.001,0.039] \\ 
-  Qua & dp & -0.95 & [0.976,1.002] & 1.82 & 0 & 0.023 & [-0.012,0.026] \\ 
-  Qua & tbl & -0.09 & [0.956,0.975] & -0.64 & 1 & -0.099 & [-0.045,0.019] \\ 
-  Qua & tms & 0.06 & [0.835,0.864] & 1.44 & 1 & 0.489 & [-0.005,0.104] \\ 
-Mon & ep & -0.99 & [0.993,1.002] & 2.40 & 0 & 0.010 & [-0.002,0.009] \\ 
-  Mon & dp & -0.98 & [0.993,1.002] & 1.20 & 0 & 0.004 & [-0.005,0.006] \\ 
-  Mon & tbl & -0.13 & [0.992,0.997] & -0.91 & 1 & -0.043 & [-0.013,0.003] \\ 
-  Mon & tms & 0.04 & [0.958,0.967] & 1.49 & 1 & 0.156 & [-0.001,0.032] \\ 
-   \hline
-\end{tabular}
-\end{table}
-
-
-# Results Reported by Campbell and Yogo (2006)
-
-![Results reported by CY](CY_results_reduced.png ){ width=80% }
-
-
-# OOS results
-\begin{table}[ht]
-\caption{Empirical results OOS from 2003 to 2017.}
-\centering
-\begin{tabular}{llrlrrrl}
-  \hline
- Prd & Regr & $\hat{\delta}$ &  CI $\hat{\rho}$ &  T-stat & Pt  & $\hat{\beta}$ &  CI $\hat{\beta}$ \\
-  \hline
-Qua & ep & -0.99 & [0.79,1.015] & 1.51 & 0 & 0.102 & [-0.051,0.203] \\ 
-  Qua & dp & -0.97 & [0.719,0.966] & 0.56 & 0 & 0.037 & [-0.097,0.198] \\ 
-  Qua & tbl & 0.33 & [0.95,0.987] & -0.70 & 1 & -0.430 & [-0.069,0.021] \\ 
-  Qua & tms & 0.18 & [0.9,0.949] & 0.20 & 1 & 0.164 & [-0.07,0.097] \\ 
-   \hline
-\end{tabular}
-\end{table}

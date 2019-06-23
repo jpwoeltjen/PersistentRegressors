@@ -98,8 +98,8 @@ for (N in c(50, 10000)){
           t <- s$coefficients[2,3]
           q <- q_test()
 
-          rho_confidence_interval <- rho_ci2(x, lags=1, level="0.95")
-          t_test_reliable <- as.numeric(sizeDistortionTest2(r, x, lags=1))
+          rho_confidence_interval <- rho_ci(x, lags=1, level="0.95")
+          t_test_reliable <- as.numeric(sizeDistortionTest(r, x, lags=1))
           ci_beta <- bonferroniQci(r,x, lags=1)
 
 
