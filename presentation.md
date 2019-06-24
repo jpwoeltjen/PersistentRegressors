@@ -178,7 +178,7 @@ where $P\left(E_{i}\right)$ is the probability that $E_{i}$ is true and $P\left(
 # Bonferroni Confidence Intervals (Cont.)
 - To get the confidence interval for $\rho$, CY need a unit root test statistic.
 - Since they suspect $\rho$ in the neighborhood of 1, the DF-GLS test statistic^[For a detailed description of the DF-GLS statistic see the appendix] is a good choice.
-- To get the confidence interval for $\beta$ they use the Q-test since they know it to be more powerful than the t-test given true $\rho$ by the Neyman–Pearson Lemma. They hope it remains more powerful for other $\rho$ as well. Whether this hope is met will be seen by nummerical analysis. 
+- To get the confidence interval for $\beta$ they use the Q-test since they know it to be more powerful than the t-test given true $\rho$ by the Neyman–Pearson Lemma. They hope it remains more powerful for other $\rho$ as well. Whether this hope is met will be seen by numerical analysis. 
 
 
 # Bonferroni Confidence Intervals (Cont.)
@@ -215,7 +215,7 @@ C_{\beta}(\alpha)=\left[\underline{\beta}\left(\overline{\rho}\left(\overline{\a
 - $\operatorname{Pr}\left(\beta \notin C_{\beta}(\alpha) | \rho \notin C_{\rho}\left(\alpha_{1}\right)\right)$ is unknown. Thus we have to assume the worst case and bound it by one.
 - $\operatorname{Pr}\left(\beta \notin C_{\beta}(\alpha) | \rho \in C_{\rho}\left(\alpha_{1}\right)\right) \leq \alpha_{2}$ is strict if $C_{\beta | \rho}\left(\alpha_{2}\right) \text { depends on } \rho$.
 
-- Bonferroni confidence interval is conservative since it is built on worst case scenario and reality is likely less harsh (more convervative the smaller is $\delta$ in absolute value).
+- Bonferroni confidence interval is conservative since it is built on worst case scenario and reality is likely less harsh (more conservative the smaller is $\delta$ in absolute value).
 - Refine confidence interval for $\rho$ until the confidence interval for $\beta$ is exactly at the desired significance level $\widetilde{\alpha}$.
 
 # Refined Bonferroni Method
@@ -233,7 +233,7 @@ C_{\beta}(\alpha)=\left[\underline{\beta}\left(\overline{\rho}\left(\overline{\a
 - two-sided Bonferroni test has at most size $\widetilde{\alpha}$ for all $c$.
 
 # Comparing Power
-- All tests considered should reject alternatives of the form $\beta=\beta_{0}+b$, where b is some constant, almost surely as $T\to\infty$. 
+- All tests considered should reject the null in favor of alternatives of the form $\beta=\beta_{0}+b$, where b is some constant, almost surely as $T\to\infty$. 
 - More interesting are alternatives of the form $\beta=\beta_{0}+b / T$, where b is again some constant. 
 - Under the local alternative \begin{equation}
 \begin{aligned} Q\left(\beta_{0}, \widetilde{\rho}\right)=& \frac{b\left(T^{-2} \sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{1 / 2}}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}}+\frac{\delta(\widetilde{c}-c)\left(T^{-2} \sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{1 / 2}}{\omega\left(1-\delta^{2}\right)^{1 / 2}} \\+& \frac{T^{-1} \sum_{t=1}^{T} x_{t-1}^{\mu}\left(u_{t}-\sigma_{u e} /\left(\sigma_{e} \omega\right) v_{t}\right)+\frac{1}{2} \sigma_{u e} /\left(\sigma_{e} \omega\right)\left(\omega^{2}-\sigma_{v}^{2}\right)}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}\left(T^{-2} \sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{1 / 2}} \end{aligned}
