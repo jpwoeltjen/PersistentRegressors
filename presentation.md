@@ -235,25 +235,6 @@ C_{\beta}(\alpha)=\left[\underline{\beta}\left(\overline{\rho}\left(\overline{\a
 # Comparing Power
 - All tests considered should reject the null in favor of alternatives of the form $\beta=\beta_{0}+b$, where b is some constant, almost surely as $T\to\infty$. 
 - More interesting are alternatives of the form $\beta=\beta_{0}+b / T$, where b is again some constant. 
-- Under the local alternative \begin{equation}
-\begin{aligned} Q\left(\beta_{0}, \widetilde{\rho}\right)=& \frac{b\left(T^{-2} \sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{1 / 2}}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}}+\frac{\delta(\widetilde{c}-c)\left(T^{-2} \sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{1 / 2}}{\omega\left(1-\delta^{2}\right)^{1 / 2}} \\+& \frac{T^{-1} \sum_{t=1}^{T} x_{t-1}^{\mu}\left(u_{t}-\sigma_{u e} /\left(\sigma_{e} \omega\right) v_{t}\right)+\frac{1}{2} \sigma_{u e} /\left(\sigma_{e} \omega\right)\left(\omega^{2}-\sigma_{v}^{2}\right)}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}\left(T^{-2} \sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{1 / 2}} \end{aligned}
-\end{equation}
-
-- where $\widetilde{c}=T(\widetilde{\rho}-1)$
-
-# Comparing Power (Cont.)
-\begin{equation}
-Q\left(\beta_{0}, \widetilde{\rho}\right) \Rightarrow \frac{b \omega \kappa_{c}}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}}+\frac{\delta(\widetilde{c}-c) \kappa_{c}}{\left(1-\delta^{2}\right)^{1 / 2}}+Z
-\end{equation}
-
-- The power function for a right-tailed test is \begin{equation}
-\pi_{Q}(b)=\mathrm{E}\left[\Phi\left(z_{\alpha}-\frac{b \omega \kappa_{c}}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}}-\frac{\delta(\widetilde{c}-c) \kappa_{c}}{\left(1-\delta^{2}\right)^{1 / 2}}\right)\right]
-\end{equation}
-
-- Where $\Phi(z)$ is one minus the standard normal CDF, $z_{\alpha}$ is the $1-\alpha$ quantile.
-- The expectation is taken over the distribution of $\left(W_{e}(s), J_{c}(s)\right)$.
-
-# Plotting the Power
 
 
 ![Null: $\beta=\beta_{0}$ against local alternatives: $b=T\left(\beta-\beta_{0}\right)>0$ from Campbell and Yogo (2006)](power.png "text"){ width=70% }
@@ -446,3 +427,22 @@ predictability’’. Unpublished working paper. University of Pennsylvania.]
 - The 90% Bonferroni confidence interval $[\underline{\beta}(\overline{\rho}), \overline{\beta}(\underline{\rho})]$ corresponds to a 10% two-sided test or a 5% one-sided test of the null hypothesis $\beta=0$.
 
 
+# Power of Q-test under Local Alternative
+- Under the local alternative \begin{equation}
+\begin{aligned} Q\left(\beta_{0}, \widetilde{\rho}\right)=& \frac{b\left(T^{-2} \sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{1 / 2}}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}}+\frac{\delta(\widetilde{c}-c)\left(T^{-2} \sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{1 / 2}}{\omega\left(1-\delta^{2}\right)^{1 / 2}} \\+& \frac{T^{-1} \sum_{t=1}^{T} x_{t-1}^{\mu}\left(u_{t}-\sigma_{u e} /\left(\sigma_{e} \omega\right) v_{t}\right)+\frac{1}{2} \sigma_{u e} /\left(\sigma_{e} \omega\right)\left(\omega^{2}-\sigma_{v}^{2}\right)}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}\left(T^{-2} \sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{1 / 2}} \end{aligned}
+\end{equation}
+
+- where $\widetilde{c}=T(\widetilde{\rho}-1)$
+
+\begin{equation}
+Q\left(\beta_{0}, \widetilde{\rho}\right) \Rightarrow \frac{b \omega \kappa_{c}}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}}+\frac{\delta(\widetilde{c}-c) \kappa_{c}}{\left(1-\delta^{2}\right)^{1 / 2}}+Z
+\end{equation}
+
+# Power of Q-test under Local Alternative (Cont.)
+
+- The power function for a right-tailed test is \begin{equation}
+\pi_{Q}(b)=\mathrm{E}\left[\Phi\left(z_{\alpha}-\frac{b \omega \kappa_{c}}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}}-\frac{\delta(\widetilde{c}-c) \kappa_{c}}{\left(1-\delta^{2}\right)^{1 / 2}}\right)\right]
+\end{equation}
+
+- Where $\Phi(z)$ is one minus the standard normal CDF, $z_{\alpha}$ is the $1-\alpha$ quantile.
+- The expectation is taken over the distribution of $\left(W_{e}(s), J_{c}(s)\right)$.
