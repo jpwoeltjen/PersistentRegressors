@@ -229,7 +229,7 @@ C_{\beta}(\alpha)=\left[\underline{\beta}\left(\overline{\rho}\left(\overline{\a
 3. repeat 2. for $\underline{\alpha}_{1}$ s.t. $\operatorname{Pr}\left(\overline{\beta}\left(\underline{\rho}\left(\underline{\alpha}_{1}\right), \alpha_{2}\right)<\beta\right) \leq \widetilde{\alpha} / 2$
 
 - $[\underline{\alpha}_{1}, \overline{\alpha}_{1}]$ is a tighter confidence interval for $\rho$.
-- one-sided Bonferroni test^[For a detailed description of how to implement this test using OLS refer to the appendix. Alternatively, read the source code of R package{pr}] has exact size $\widetilde{\alpha} / 2$ for some permissible value of $c$.
+- one-sided Bonferroni test^[For a detailed description of how to implement this test using OLS refer to the appendix. Alternatively, read the source code of R package{pr}] has exact size $\widetilde{\alpha} / 2$ for some $c$.
 - two-sided Bonferroni test has at most size $\widetilde{\alpha}$ for all $c$.
 
 # Comparing Power
@@ -283,9 +283,9 @@ Q\left(\beta_{0}, \widetilde{\rho}\right) \Rightarrow \frac{b \omega \kappa_{c}}
 
 # Analysis of the Power Gain (Cont.)
 
-- When the regressor is highly persistent, the use of the Q-test rather than the t-test is a relatively important source of power gain for the Bonferroni Q-test.
-- When the predictor variable is less persistent, the use of the DF-GLS test rather than the ADF test is a relatively important source of power gain for the Bonferroni Q-test. 
-- Bonferroni refinement is an especially important source of power gain for the Bonferroni Q-test since it tries to exploit information about $\rho$. This makes its confidence interval for $\beta$ given $\rho$ more sensitive to $\rho$ resulting in a too conservative Bonferroni test without the refinement.
+- When the regressor is highly persistent, the use of the Q-test rather than the t-test is an important source of power gain for the Bonferroni Q-test.
+
+- Bonferroni refinement is an especially important source of power gain for the Bonferroni Q-test since it tries to exploit information about $\rho$. This makes its confidence interval for $\beta$ given $\rho$ more sensitive to $\rho$. Hence, without the refinement the Bonferroni test is too conservative.
 
 
 # Finite Sample Rejection Rates (10,000 Monte Carlo runs)
@@ -321,7 +321,7 @@ Q\left(\beta_{0}, \widetilde{\rho}\right) \Rightarrow \frac{b \omega \kappa_{c}}
 \end{table}
 
 
-# Results
+# Replicated and Updated Results
 
 \begin{table}[ht]
 \caption{Empirical results \newline
