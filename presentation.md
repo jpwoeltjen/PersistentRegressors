@@ -228,7 +228,7 @@ C_{\beta}(\alpha)=\left[\underline{\beta}\left(\overline{\rho}\left(\overline{\a
 - and $\operatorname{Pr}\left(\underline{\beta}\left(\overline{\rho}\left(\overline{\alpha}_{1}\right), \alpha_{2}\right)>\beta\right) = \widetilde{\alpha} / 2$ at some point on the grid.
 3. repeat 2. for $\underline{\alpha}_{1}$ s.t. $\operatorname{Pr}\left(\overline{\beta}\left(\underline{\rho}\left(\underline{\alpha}_{1}\right), \alpha_{2}\right)<\beta\right) \leq \widetilde{\alpha} / 2$
 
-- $[\underline{\alpha}_{1}, \overline{\alpha}_{1}]$ is a tighter confidence interval for $\rho$.
+- $[\underline{\alpha}_{1}, \overline{\alpha}_{1}]$ defines a tighter confidence interval for $\rho$.
 - one-sided Bonferroni test^[For a detailed description of how to implement this test using OLS refer to the appendix. Alternatively, read the source code of R package{pr}] has exact size $\widetilde{\alpha} / 2$ for some $c$.
 - two-sided Bonferroni test has at most size $\widetilde{\alpha}$ for all $c$.
 
@@ -311,7 +311,7 @@ Data was taken from Amit Goyal's Website. Stock returns are the SP 500 index log
 \centering
 \begin{tabular}{llrlrrrl}
   \hline
- Prd & Regr & $\hat{\delta}$ &  CI $\hat{\rho}$ &  T-stat & Pt  & $\hat{\beta}$ &  CI $\hat{\beta}$ \\
+ Prd & Regr & $\hat{\delta}$ &  CI $\hat{\rho}$ &  T-stat & Pt  & $\hat{\beta}$ &  CI $\left(\sigma_{e} / \sigma_{u}\right)\hat{\beta}$ \\
   \hline
 Ann & ep & -0.97 & [0.827,0.979] & 2.12 & 0 & 0.114 & [-0.01,0.18] \\ 
   Ann & dp & -0.86 & [0.875,0.986] & 0.97 & 0 & 0.042 & [-0.069,0.107] \\ 
@@ -341,7 +341,7 @@ Mon & ep & -0.99 & [0.993,1.002] & 2.40 & 0 & 0.010 & [-0.002,0.009] \\
 \centering
 \begin{tabular}{llrlrrrl}
   \hline
- Prd & Regr & $\hat{\delta}$ &  CI $\hat{\rho}$ &  T-stat & Pt  & $\hat{\beta}$ &  CI $\hat{\beta}$ \\
+ Prd & Regr & $\hat{\delta}$ &  CI $\hat{\rho}$ &  T-stat & Pt  & $\hat{\beta}$ &  CI $\left(\sigma_{e} / \sigma_{u}\right)\hat{\beta}$ \\
   \hline
 Qua & ep & -0.99 & [0.79,1.015] & 1.51 & 0 & 0.102 & [-0.051,0.203] \\ 
   Qua & dp & -0.97 & [0.719,0.966] & 0.56 & 0 & 0.037 & [-0.097,0.198] \\ 
