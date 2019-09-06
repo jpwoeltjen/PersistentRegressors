@@ -1,4 +1,5 @@
 library(data.table)
+shift <- data.table::shift
 
 rho_ci <- function(x, lags=0, level = c("0.95", "0.90", "0.80"), max_lags = 8) {
 
@@ -9,7 +10,6 @@ rho_ci <- function(x, lags=0, level = c("0.95", "0.90", "0.80"), max_lags = 8) {
          "0.95" = df <- pr::df_gls95,
          "0.90" = df <- pr::df_gls90,
          "0.80"  = df <- pr::df_gls80)
-
 
   N <- length(x)
 
@@ -68,6 +68,8 @@ rho_ci <- function(x, lags=0, level = c("0.95", "0.90", "0.80"), max_lags = 8) {
       X <- na.omit(X)
 
       # estimate linear model without intercept
+      # the dfgls estimator has been verified with ur.ers(x, type="DF-GLS", lag.max = lag-1)
+      # of the urca package
       lm_dfgls <- lm( X[,1]~ X[,-1]  -1)
       smry_dfgls <- summary(lm_dfgls)
       df_gls <- smry_dfgls$coefficients[1,"t value"]
@@ -79,18 +81,15 @@ rho_ci <- function(x, lags=0, level = c("0.95", "0.90", "0.80"), max_lags = 8) {
       lag_list <- c(lag_list, i)
       df_gls_list <- c(df_gls_list, df_gls)
 
-
-
     }
+    print(bic_list)
+    print(df_gls_list)
+    print(lag_list)
     best_bic_index <- which.min(bic_list)
     opt_lags <- lag_list[best_bic_index]
     df_gls <- df_gls_list[best_bic_index]
 
-
   }
-
-
-
 
   table_df_gls <- as.numeric(row.names(df))
   df_gls_lookup <- table_df_gls[which.min(abs(table_df_gls - c(df_gls)) )]

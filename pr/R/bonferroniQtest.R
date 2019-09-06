@@ -1,4 +1,5 @@
 library(data.table)
+shift <- data.table::shift
 
 bonferroniQci <- function(r, x, lags) {
 

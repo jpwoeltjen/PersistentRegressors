@@ -2,6 +2,7 @@ library(pr)
 library(zoo)
 library(data.table)
 library(ggplot2)
+library(xtable)
 
 
 setwd("~/Desktop/PersistentRegressors")
