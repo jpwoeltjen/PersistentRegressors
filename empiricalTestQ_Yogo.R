@@ -10,10 +10,7 @@ setwd("~/Desktop/PersistentRegressors")
 name <- 'CRSP_Q'
 dir_name <- paste('data_yogo/',name, '.txt', sep='')
 df <- read.csv(dir_name, header=TRUE, sep="\t", dec="." , check.names=TRUE)
-#colnames(df)[1] <- 'yyyy'
-#name <- substr(name, 1, 3)
-# df <- df[as.character(1952:2003),]
-#df$Index <- as.numeric(gsub(",","",df$Index))
+
 max_year <- 2003
 min_year <- 1926
 
@@ -32,17 +29,8 @@ obs_list <- NULL
 
 
 
-############## MA(10) of earnings / Index price ###############################
-
-#df$earnings_ma <- rollmean(df$E12,10*4, fill = NA, align = "right")
-#df$ep <- df$earnings_ma/df$Index
-#df$earnings_yield <- df$E12/df$Index
-
-#df$log_return <- c( NA, diff(log(df$Index)) )
-#df$return <-  df$Index/shift(df$Index, n=1, fill=NA, type="lag") -1
-# df$excess_log_return <- df$log_return - df$Rfree
-#df$excess_log_return <- df$CRSP_SPvwx
-df$excess_log_return <- df$ret #- df$rf
+############## MA(10) of earnings / price ###############################
+df$excess_log_return <- df$ret
 
 df2<- na.omit(df[,c('time','excess_log_return', 'lep')])
 df2 <- df2[df2$time<=max_year, ]
@@ -50,11 +38,6 @@ df2 <- df2[df2$time>=min_year, ]
 
 x <- df2$lep
 r <- df2$excess_log_return
-
-
-#ggplot(df2[,c('yyyy','excess_log_return', 'ep')], aes(yyyy)) +
-#  geom_line(aes(y = excess_log_return, colour = "excess_log_return")) +
-#  geom_line(aes(y = ep, colour = "ep"))
 
 lm1 <- lm(r[-1] ~ x[-length(x)])
 
@@ -92,17 +75,11 @@ obs_list <- c(obs_list, length(x))
 
 
 
-############## 1 yyyy dividends / Index price ###############################
+############## dividends / price ###############################
 
-#df$dp <- df$D12/df$Index
 df2<- na.omit(df[,c('time','ret', 'ldp')])
 df2 <- df2[df2$time<=max_year,]
 df2 <- df2[df2$time>=min_year,]
-
-
-#ggplot(df2[,c('yyyy','excess_log_return', 'dp')], aes(yyyy)) +
-#  geom_line(aes(y = excess_log_return, colour = "excess_log_return")) +
-#  geom_line(aes(y = dp, colour = "dp"))
 
 x <- df2$ldp
 r <- df2$ret
@@ -153,28 +130,28 @@ obs_list <- c(obs_list, length(x))
 #
 # x <- df2$rf
 # r <- df2$ret
-# 
+#
 # lm1 <- lm(r[-1] ~ x[-length(x)])
-# 
+#
 # smry1 <- summary(lm1)
 # beta = smry1$coefficients[2,1]
 # t_stat = smry1$coefficients[2,3]
-# 
+#
 # rho_ci_outcome <- rho_ci(x, lags=1, level="0.95", max_lags=6)
 # opt_lags <- rho_ci_outcome[6]
 # rho_ci_bonferroni <- rho_ci_outcome[1:2]
 # c_ci_bonferroni <- rho_ci_outcome[3:4]
-# 
+#
 # t_test_reliable <- sizeDistortionTest(r, x, lags=opt_lags)
-# 
+#
 # bonferroniQ_outcome <- bonferroniQci(r, x, lags=opt_lags)
-# 
+#
 # beta_ci <- bonferroniQ_outcome[1:2]
 # beta_ci_scaled <- round(beta_ci*bonferroniQ_outcome[8],3)
 # rho_ci_ref_bonferroni <- round(bonferroniQ_outcome[3:4],3)
 # delta_hat <- round(bonferroniQ_outcome[5],3)
 # df_gls <- round(bonferroniQ_outcome[7],3)
-# 
+#
 # name_list <- c(name_list, name)
 # var_list <- c(var_list, colnames(df2)[3])
 # delta_list <- c(delta_list, delta_hat)
@@ -194,35 +171,35 @@ obs_list <- c(obs_list, length(x))
 # #df2 <- df2[df2$yyyy>19514,]
 # df2 <- df2[df2$time<=max_year,]
 # df2 <- df2[df2$time>=min_year,]
-# 
-# 
+#
+#
 # #ggplot(df2[,c('yyyy','excess_log_return', 'tms')], aes(yyyy)) +
 #  # geom_line(aes(y = excess_log_return, colour = "excess_log_return")) +
 #   #geom_line(aes(y = tms, colour = "term spread"))
-# 
+#
 # x <- df2$yield - df2$rf
 # r <- df2$ret
-# 
+#
 # lm1 <- lm(r[-1] ~ x[-length(x)])
 # smry1 <- summary(lm1)
 # beta = smry1$coefficients[2,1]
 # t_stat = smry1$coefficients[2,3]
-# 
+#
 # rho_ci_outcome <- rho_ci(x, lags=1, level="0.95", max_lags=6)
 # opt_lags <- rho_ci_outcome[6]
 # rho_ci_bonferroni <- rho_ci_outcome[1:2]
 # c_ci_bonferroni <- rho_ci_outcome[3:4]
-# 
+#
 # t_test_reliable <- sizeDistortionTest(r, x, lags=opt_lags)
-# 
+#
 # bonferroniQ_outcome <- bonferroniQci(r, x, lags=opt_lags)
-# 
+#
 # beta_ci <- bonferroniQ_outcome[1:2]
 # beta_ci_scaled <- round(beta_ci*bonferroniQ_outcome[8],3)
 # rho_ci_ref_bonferroni <- round(bonferroniQ_outcome[3:4],3)
 # delta_hat <- round(bonferroniQ_outcome[5],3)
 # df_gls <- round(bonferroniQ_outcome[7],3)
-# 
+#
 # name_list <- c(name_list, name)
 # var_list <- c(var_list, colnames(df2)[3])
 # delta_list <- c(delta_list, delta_hat)
@@ -234,20 +211,20 @@ obs_list <- c(obs_list, length(x))
 # rho_ci_list <-c(rho_ci_list, paste('[',rho_ci_ref_bonferroni[1],',',rho_ci_ref_bonferroni[2],']', sep=''))
 # beta_ci_scaled_list <-c(beta_ci_scaled_list, paste('[',beta_ci_scaled[1],',',beta_ci_scaled[2],']', sep=''))
 # obs_list <- c(obs_list, length(x))
-# 
+#
 
 master_df <- data.frame(  name_list,
                           var_list,
-                          # obs_list,
+                          obs_list,
                           delta_list,
                           rho_ci_list,
-                          # df_gls_list,
-                          # lags_list,
+                          df_gls_list,
+                          lags_list,
                           t_stat_list,
                           as.numeric(pretest_list),
                           beta_list,
                           beta_ci_scaled_list)
 
-file_name <- paste('results/yogo_empirical_results_', Sys.time(), '.tex', sep='')
-print(xtable(master_df, digits=c(0, 0,0,2,0,2,0,3,0), type = "latex"), file = file_name, include.rownames=FALSE)
+file_name <- paste('results/yogo_empirical_results_Q_', Sys.time(), '.tex', sep='')
+print(xtable(master_df, digits=c(0, 0,0,0,2,0,3,0,2,0,3,0), type = "latex"), file = file_name, include.rownames=FALSE)
 

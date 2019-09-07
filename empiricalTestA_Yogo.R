@@ -7,7 +7,7 @@ library(xtable)
 
 setwd("~/Desktop/PersistentRegressors")
 
-name <- 'CRSP_M'
+name <- 'CRSP_A'
 dir_name <- paste('data_yogo/',name, '.txt', sep='')
 df <- read.csv(dir_name, header=TRUE, sep="\t", dec="." , check.names=TRUE)
 
@@ -126,6 +126,6 @@ master_df <- data.frame(  name_list,
                           beta_list,
                           beta_ci_scaled_list)
 
-file_name <- paste('results/yogo_empirical_results_M_', Sys.time(), '.tex', sep='')
+file_name <- paste('results/yogo_empirical_results_A_', Sys.time(), '.tex', sep='')
 print(xtable(master_df, digits=c(0, 0,0,0,2,0,3,0,2,0,3,0), type = "latex"), file = file_name, include.rownames=FALSE)
 

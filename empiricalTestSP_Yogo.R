@@ -126,6 +126,6 @@ master_df <- data.frame(  name_list,
                           beta_list,
                           beta_ci_scaled_list)
 
-# file_name <- paste('results/yogo_empirical_results_', Sys.time(), '.tex', sep='')
-# print(xtable(master_df, digits=c(0, 0,0,0,2,0,3,0,2,0,3,0), type = "latex"), file = file_name, include.rownames=FALSE)
+file_name <- paste('results/yogo_empirical_results_SPA_', Sys.time(), '.tex', sep='')
+print(xtable(master_df, digits=c(0, 0,0,0,2,0,3,0,2,0,3,0), type = "latex"), file = file_name, include.rownames=FALSE)
 
