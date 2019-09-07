@@ -98,6 +98,7 @@ where $\left(W_{u}(s), W_{e}(s)\right)^{\prime}$ is a two-dimensional Wiener pro
 Within the local-to-unity asymptotic theory the persistence of the process $x_{t}$ is modeled as $\rho=1+c / T$ where $c$ is a constant and $T$ is the sample size. Hence, when $c<0$, $x_{t}$ is $I(0)$ but highly persistent and its sample moments do not converge in probability to constants but to functionals of a diffusion process instead.  The t-test is not feasible since it depends on the unknown parameter $\rho$ through $\tau_{c} / \kappa_{c}$ which also makes it non-standard. 
 
 \subsection{A pretest}
+\label{pretest}
 From equation ... it's easy to see that if $\delta = 0$ the nuisance term $\tau_{c} / \kappa_{c}$ vanishes and the t-statistic collapses to the standard normal  random variable $Z$. It therefore makes sense to test whether $\delta$ is different from zero. If it isn't, one can infer that the t-statistic is approximately standard normal and inference based on it is valid. This, however, is not the only condition in which there is no size distortion. Phillips (1987) shows that if $x_{t}$ is not persistent, $\tau_{c} / \kappa_{c}$ converges to a different standard normal random variable $Z^{\star}$. Hence the t-statistic, as a sum of two independent standard normal random variables, is likewise standard normal. 
 
 Campbell and Yogo (2006) use these facts as bases for a pretest. This test supposes that an actual size $\alpha^{\star}  \geq \alpha$ may be acceptable if its not much greater than the nominal size $\alpha$. It then tests whether $\alpha^{\star}$ is greater than a prespecified acceptable size. It would be tempting to use a unit root test and infer no size distortion if its null of non-stationarity can be rejected. Elliott and Stock (1994) show, however, that this does not guarantee valid inference via the t-statistic. Instead, Campbell and Yogo (2006) use a unit root test statistic to construct a confidence interval for $c$ by inverting its alternative distribution in the spirit of Stock (1991). $\delta$, on the other hand, can be consistently estimated from the residuals of regression ($\ref{eqn:1}$, $\ref{eqn:2}$). The size of the t-statistic forms a two-dimensional surface in the $c$-$\delta$-parameter space. If the confidence interval for $c$ lies strictly outside the region where the size is above the acceptable threshold for $\hat{\delta}$, the null of unacceptable size distortion can be rejected. This test is implemented with tables provided by Campbell and Yogo (2006) which use the DF-GLS test statistic proposed by Elliott et al. (1996) to construct the confidence interval for $c$. My application uses the closest tabulated values to the estimated values without interpolating.
@@ -205,9 +206,11 @@ $$[\underline{\beta}(\overline{\rho}), \overline{\beta}(\underline{\rho})]$$
 
 To confirm the correct implementation of the procedure, Table~\vref{tab:cy} replicates Table 3 of Campbell and Yogo (2006) with the same input parameters. For each parameter combination 10,000 Monte Carlo samples are drawn from a multivariate standard normal distribution with correlation $\delta$. These variates represent the innovations, which are used to simulate sample paths according to system ($\ref{eqn:1}$, $\ref{eqn:2}$). The null hypothesis $H_0: \beta = 0$ is tested against the alternative $H_1: \beta > 0$ at the 5\% significance level. If the Bonferroni confidence interval lies strictly above zero, the one-sided test is rejected. 
 \begin{table}[hb!]
-\caption{Finite-sample rejection rates of the true null for right-tailed tests of predictability at $\alpha$=0.05 (10,000 Monte Carlo samples).}
+\caption{Finite-sample rejection rates}
 \label{tab:cy}
 \centering
+
+\begin{threeparttable}
 \begin{tabular}{rrrrrrrr}
  \hline
  & Obs & $c$ & $\rho$ & $\delta$ & t-test & Bonf. Q-test & Q-test \\ 
@@ -232,13 +235,19 @@ To confirm the correct implementation of the procedure, Table~\vref{tab:cy} repl
   18 & 250 & -20 & 0.920 & -0.75 & 0.0944 & 0.0369 & 0.0501 \\ 
    \hline
 \end{tabular}
+ \begin{tablenotes}
+ \small
+\item This Table displays the finite-sample rejection rates of the true null for right-tailed and two-tailed Bonferroni Q-tests of predictability at $\alpha$=0.05 and $\alpha$=0.1, respectively. 10,000 Monte Carlo simulations are performed.
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 
 Next, slightly different input parameters are chosen. If the results differ qualitatively, the previous findings might be the result of selection bias. As demonstrated by Table~\vref{tab:cy_changed}, no such suspicion is warranted. As long as the sample size is at least 100 and $\rho$ is local to unity, the Bonferroni Q-test has acceptable finite sample rejection rates. The infeasible Q-test, unsurprisingly, always has rejection rate close to $\alpha$. The t-test, on the other hand, significantly over-rejects when the innovations are highly correlated and $\rho$ is local to unity. It should be noted, however, that the two-sided Bonferroni Q-test tends to under-reject for the chosen parameters. 
 \begin{table}[h!]
-\caption{Finite-sample rejection rates  of the true null for right-tailed and two-tailed tests of predictability at $\alpha$=0.05 and $\alpha$=0.1, respectively (10,000 Monte Carlo samples).}
+\caption{Finite-sample rejection rates}
 \centering
 \label{tab:cy_changed}
+\begin{threeparttable}
 \begin{tabular}{rrrrrrrrr}
   \hline
  & Obs & $c$ & $\rho$ & $\delta$ & t-test & Bonf. Q-test & Q-test & Bonf. Q-test (two-sided) \\ 
@@ -269,13 +278,19 @@ Next, slightly different input parameters are chosen. If the results differ qual
   24 & 200 & -15 & 0.925 & -0.90 & 0.1234 & 0.0482 & 0.0491 & 0.0670 \\ 
    \hline
 \end{tabular}
+ \begin{tablenotes}
+ \small
+\item This Table displays the finite-sample rejection rates of the true null for right-tailed and two-tailed Bonferroni Q-tests of predictability at $\alpha$=0.05 and $\alpha$=0.1, respectively. 10,000 Monte Carlo simulations are performed.
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 
 As argued by Phillips (2014), the Q-test as derived in section (3) is asymptotically invalid when the largest autoregressive root of the regressor is not local to unity. In the following I will demonstrate the finite sample behavior as $\rho$ diverges from unity. Again 10,000 Monte Carlo simulations are run with Gaussian innovations. A relatively small sample size is chosen to keep the DF-GLS statistic small in absolute value and thus stay in the vicinity of the implementation of Campbell and Yogo (2005). Table~\vref{tab:non-local} shows that as $\rho$ distances itself from the unity neighborhood the Bonferroni Q-test significantly over-rejects the true null of no predictability. 
 \begin{table}[h!]
-\caption{Finite-sample rejection rates of the true null for right-tailed and two-tailed tests of predictability at $\alpha$=0.05 and $\alpha$=0.1, respectively, with non local to unity autoregressive root (10,000 Monte Carlo samples). }
+\caption{Finite-sample rejection rates (non local to unity autoregressive root) }
 \label{tab:non-local}
 \centering
+\begin{threeparttable}
 \begin{tabular}{rrrrrrrrr}
   \hline
  & Obs & $c$ & $\rho$ & $\delta$ & t-test & Bonf. Q-test & Q-test & Bonf. Q-test (two-sided) \\ 
@@ -297,6 +312,11 @@ As argued by Phillips (2014), the Q-test as derived in section (3) is asymptotic
   15 & 50 & -30 & 0.412 & -0.50 & 0.0719 & 0.1003 & 0.0523 & 0.1195 \\ 
    \hline
 \end{tabular}
+ \begin{tablenotes}
+ \small
+\item This Table displays the finite-sample rejection rates of the true null for right-tailed and two-tailed Bonferroni Q-tests of predictability at $\alpha$=0.05 and $\alpha$=0.1, respectively, with non local to unity autoregressive root. 10,000 Monte Carlo simulations are performed.
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 
 Campbell and Yogo (2006) evaluate the robustness of the Q-test under a fat-tailed distribution. In particular, they find finite sample rejection probabilities to be unchanged from the Gaussian case when the innovations follow a Student t-distribution with five degrees of freedom. As shown by Cavaliere (2004) unit root tests may be invalid under conditional heteroskedasticity. Assumptions ... imply validity of the Q-test under conditional heteroskedasticity only if the variance is covariance stationary. 
@@ -327,8 +347,9 @@ in $\boldsymbol{D}_{t}$ are modeled by independent univariate GARCH processes, i
 Simulation results are shown in Table~\vref{tab:ccc-garch}.
 \begin{table}[ht]
 \centering
-\caption{Finite-sample rejection rates of the true null for right-tailed  [BQ] and two-tailed  [BQ$_{{2sided}}$] Bonferroni Q-tests of predictability at $\alpha$=0.05 and $\alpha$=0.1, respectively, with innovations following a CCC-GARCH(1, 1) process (10,000 Monte Carlo samples). }
+\caption{Finite-sample rejection rates (CCC-GARCH(1, 1)) }
 \label{tab:ccc-garch}
+\begin{threeparttable}
 \begin{tabular}{rrrrrrrrrrr}
   \hline
  & Obs & $c$ & $\rho$ & $\delta$ &$\hat{\delta}$ & $\alpha_{_{GARCH}}$ & $\beta_{_{GARCH}}$ & t-test &BQ& BQ$_{{2sided}}$ \\ 
@@ -342,13 +363,19 @@ Simulation results are shown in Table~\vref{tab:ccc-garch}.
   7 & 100 & -2 & 0.98 & -0.95 & -0.6086 & 0.0999 & 0.10 & 0.1741 & 0.0667 & 0.0742 \\ 
    \hline
 \end{tabular}
+ \begin{tablenotes}
+ \small
+\item This Table displays the finite-sample rejection rates of the true null for right-tailed  [BQ] and two-tailed  [BQ$_{{2sided}}$] Bonferroni Q-tests of predictability at $\alpha$=0.05 and $\alpha$=0.1, respectively, with innovations following a CCC-GARCH(1, 1) process. 10,000 Monte Carlo simulations are performed.
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 
 In the CCC-GARCH model it has been assumed that there are no volatility transmissions between the returns and the regressor. This assumption seems unrealistic and it reduces the correlation between the residuals as demonstrated by $\hat{\delta}$. There are various multivariate GARCH models suited for incorporating spill-over effects such as the BEKK model of Engle and Kroner (1995). It seems plausible, though, that the variances of both the regressor and the returns share a common stochastic trend which may be imagined as the overall economic uncertainty. This seems reasonable since it is hard to imagine having high variance in returns without having high variance in valuation ratios and vice versa. Simulation is performed similar as in the CCC-GARCH model but now $h_{1, t} =h_{2, t}$ in equation ($\ref{eqn:40}$). Results in Table~\vref{tab:cst-garch} compared with Table~\vref{tab:cy}  indicate that the one-sided Bonferroni Q-test tends to over-reject the true null if innovations are modeled as described above.
 \begin{table}[hbt]
 \centering
-\caption{Finite-sample rejection rates of the true null for right-tailed [BQ] and two-tailed  [BQ$_{{2sided}}$] Bonferroni Q-tests of predictability at $\alpha$=0.05 and $\alpha$=0.1, respectively, with the variances of innovations sharing a common stochastic trend which is modeled as a univariate GARCH(1, 1) process (10,000 Monte Carlo samples). }
+\caption{Finite-sample rejection rates (common stochastic trend)}
 \label{tab:cst-garch}
+\begin{threeparttable}
 \begin{tabular}{rrrrrrrrrr}
   \hline
   & Obs & $c$ & $\rho$ & $\delta$ & $\alpha_{_{GARCH}}$ & $\beta_{_{GARCH}}$ & t-test &BQ& BQ$_{{2sided}}$ \\ 
@@ -369,6 +396,11 @@ In the CCC-GARCH model it has been assumed that there are no volatility transmis
   14 & 100 & -2 & 0.980 & -0.9500 & 0.0999 & 0.10 & 0.2749 & 0.0656 & 0.0715 \\ 
    \hline
 \end{tabular}
+ \begin{tablenotes}
+ \small
+\item This Table displays the finite-sample rejection rates of the true null for right-tailed [BQ] and two-tailed  [BQ$_{{2sided}}$] Bonferroni Q-tests of predictability at $\alpha$=0.05 and $\alpha$=0.1, respectively, with the variances of innovations sharing a common stochastic trend which is modeled as a univariate GARCH(1, 1) process. 10,000 Monte Carlo simulations are performed.
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 
 \section{Empirical Results}
@@ -396,7 +428,8 @@ dataset & $x$ & obs & $\hat{\delta}$ & $CI_{\rho}$ & DF-GLS & $p$ &t-stat & pt &
 \hline
 \end{tabular}
  \begin{tablenotes}
-\item Data is taken from Motohiro Yogo's website at https://drive.google.com/file/d/0BzR-ojpYuaFMcnZteHFyWUVIUFU/view. The regressor is the 10-year moving average earnings to current price ratio [lep] and the log dividend to price ratio [ldp] in logs. 
+ \small
+\item Data is taken from Motohiro Yogo's website at https://drive.google.com/file/d/0BzR-ojpYuaFMcnZteHFyWUVIUFU/view. The regressors are the 10-year moving average earnings to current price ratio [lep] and the dividend to price ratio [ldp] in logs. Observations are recorded on a monthly [CRSP M], quarterly [CRSP Q], and annual basis [CRSP A] for CRSP (1926– 2002). For S\&P (1880– 2002) data is only available on an annual basis [SP A]. $p$ denotes the optimal number of lags selected by BIC. pt is a boolean denoting whether the pretest of section $\ref{pretest}$ rejects the null of actual size greater than 0.075. $CI_{\rho}$ and $CI_{\beta}$ denote the confidence interval for $\rho$ and $\beta$, respectively.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
