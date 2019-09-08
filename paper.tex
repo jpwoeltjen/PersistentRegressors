@@ -46,7 +46,7 @@ x_{t} = \gamma + \rho  x_{t-1} + e_{t}
 They further assume normality i.e. $w_{t}=\left(u_{t}, e_{t}\right)^{\prime} \stackrel{i i d}{\sim} \mathrm{N}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where  $\boldsymbol{\Sigma}=\left[\begin{array}{cc}{\sigma_{u}^{2}} & {\sigma_{u e}} \\ {\sigma_{u e}} & {\sigma_{e}^{2}}\end{array}\right]$ is known .
 
 
-Whether $x_{t-1}$ is indeed predictive may be ascertained by evaluating the statistically significance of the $\beta$ coefficient obtained from an ordinary least squares [OLS] regression i.e. testing the null $H_0: \beta = 0$. A common approach is to perform a t-test of $\beta$. Elliott and Stock (1994), however, show that the t-test leads to invalid inference if $x_{t}$ is persistent i.e. if $\rho$ is close to unity and the noise terms $u_{t}$ and $e_{t}$ are highly correlated. Since the regressor is a valuation ratio which is a function of the stock price and the regressant is the stock's return which is also a function of the current price we have reason to believe that $u_{t}$ and $e_{t}$ will indeed be highly (negatively) correlated. Section ... will confirm this belief by empirical sample moments. It will also be seen that the regressor is highly persistent. Hence, we have to worry about the validity of the t-test. A pretest that tests the null of the actual size of the t-test being greater than some deemed-acceptable nominal size $\alpha$ and is based on the joint presence of both aforementioned conditions is explained in section ....
+Whether $x_{t-1}$ is indeed predictive may be ascertained by evaluating the statistically significance of the $\beta$ coefficient obtained from an ordinary least squares [OLS] regression i.e. testing the null $H_0: \beta = 0$. A common approach is to perform a t-test of $\beta$. Elliott and Stock (1994), however, show that the t-test leads to invalid inference if $x_{t}$ is persistent i.e. if $\rho$ is close to unity and the noise terms $u_{t}$ and $e_{t}$ are highly correlated. Since the regressor is a valuation ratio which is a function of the stock price and the regressand is the stock's return which is also a function of the current price we have reason to believe that $u_{t}$ and $e_{t}$ will indeed be highly (negatively) correlated. Section ... will confirm this belief by empirical sample moments. It will also be seen that the regressor is highly persistent. Hence, we have to worry about the validity of the t-test. A pretest that tests the null of the actual size of the t-test being greater than some deemed-acceptable nominal size $\alpha$ and is based on the joint presence of both aforementioned conditions is explained in section ....
 
 \section{Derivation of the tests}
 \subsection{Infeasible tests}
@@ -405,12 +405,10 @@ In the CCC-GARCH model it has been assumed that there are no volatility transmis
 
 \section{Empirical Results}
 
-Table~\vref{tab:cy_sp} replicates the key results of Tables 4 and 5 of Campbell and Yogo (2005). The Bonferroni Q-test is implemented as described in section $\ref{implementation}$. Apart from rounding errors, the results are nearly the same except for the following discrepancies. First, the DF-GLS statistics for $p>1$ are higher than reported by Campbell and Yogo (2005).  As previously mentioned, the DF-GLS implementation of section $\ref{implementation}$ was verified with a different open-source implementation. Second, based on the BIC, a lower $p$ of 1 was selected for monthly ldp. Investigations showed that the difference in BIC when $p=1$ compared with $p=2$ is very small. 
-%Obtained from https://sites.google.com/site/motohiroyogo/home/publications/Predict_ Data.xls.
+Table~\vref{tab:cy_sp} replicates the key results of Tables 4 and 5 of Campbell and Yogo (2006). The Bonferroni Q-test is implemented as described in section $\ref{implementation}$. Apart from rounding errors, the results are nearly the same except for the following discrepancies. First, the DF-GLS statistic for $p>1$ is higher than reported by Campbell and Yogo (2006).  As previously mentioned, the DF-GLS implementation of section $\ref{implementation}$ was verified with a different open-source implementation. Second, based on the BIC, a lower $p$ of 1 was selected for monthly ldp. Investigations showed that the difference in BIC when $p=1$ compared with $p=2$ is very small. 
 \begin{table}[ht]
 \centering
-
-\caption{Replicated model parameters from Campbell and Yogo (2005)}
+\caption{Replicated estimates of model parameters from Campbell and Yogo (2006)}
 \label{tab:cy_sp}
 \begin{threeparttable}
 \begin{tabular}{llrrlrrrrrl}
@@ -429,13 +427,85 @@ dataset & $x$ & obs & $\hat{\delta}$ & $CI_{\rho}$ & DF-GLS & $p$ &t-stat & pt &
 \end{tabular}
  \begin{tablenotes}
  \small
-\item Data is taken from Motohiro Yogo's website at https://drive.google.com/file/d/0BzR-ojpYuaFMcnZteHFyWUVIUFU/view. The regressors are the 10-year moving average earnings to current price ratio [lep] and the dividend to price ratio [ldp] in logs. Observations are recorded on a monthly [CRSP M], quarterly [CRSP Q], and annual basis [CRSP A] for CRSP (1926– 2002). For S\&P (1880– 2002) data is only available on an annual basis [SP A]. $p$ denotes the optimal number of lags selected by BIC. pt is a boolean denoting whether the pretest of section $\ref{pretest}$ rejects the null of actual size greater than 0.075. $CI_{\rho}$ and $CI_{\beta}$ denote the confidence interval for $\rho$ and $\beta$, respectively.
+\item Data is taken from Motohiro Yogo's website at https://drive.google.com/file/d/0BzR-ojpYuaFMcnZteHFyWUVIUFU/view. The regressors are the 10-year moving average earnings to current price ratio [lep] and the dividend to price ratio [ldp] in logs. Observations are recorded on a monthly [CRSP M], quarterly [CRSP Q], and annual basis [CRSP A] for CRSP (1926– 2002). For S\&P (1880– 2002) data is only available on an annual basis [SP A]. Stock returns are the SP 500 value weighted index log-returns from 1880 to 2003 minus the risk free rate and the CRSP value weighted index log-returns from 1926 to 2003 minus the risk free rate. $p$ denotes the optimal number of lags selected by BIC. pt is a boolean denoting whether the pretest of section $\ref{pretest}$ rejects the null of actual size greater than 0.075. $CI_{\rho}$ and $CI_{\beta}$ denote the confidence interval for $\rho$ and $\beta$, respectively.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
 
+The null hypothesis of no predictability can be rejected for ldp and lep at the annual sampling frequency and for all datasets, respectively, using data from Campbell and Yogo (2006). Based on the extended dataset from Amid Goyal, only lep on a quarterly frequency can be inferred to be predictive of excess log-returns. This discrepancy may arise from two causes. First due to the lack of availability of the 1-month T-bill rate, all risk free-rate computations are based on the 3-month T-bill in the extended dataset. This introduces minor differences in datasets since Campbell and Yogo (2006) use the 1-month T-bill as a risk-free proxy for their monthly regressions. Second, as will be seen in Table~\vref{tab:oos} predictability seems to have been weakening in recent years. Hence, a time-extended sample will show less evidence of it.  
+\begin{table}[ht]
+\centering
+\caption{Replicated estimates of model parameters from Campbell and Yogo (2006) with an extended dataset}
+\label{tab:extended}
+\begin{threeparttable}
+\begin{tabular}{llrrlrrrrrl}
+  \hline
+dataset & $x$ & obs & $\hat{\delta}$ & $CI_{\rho}$ & DF-GLS & $p$ &t-stat & pt & $\hat{\beta}$ & $CI_{\beta}$ \\ 
+  \hline
+    CRSP\_A  & lep & 92 & -0.97 & [0.827,0.979] & -2.092 & 1 & 2.12 & 0 & 0.114 & [-0.01,0.18] \\ 
+    CRSP\_A  & ldp & 92 & -0.86 & [0.875,0.986] & -1.731 & 1 & 0.97 & 0 & 0.042 & [-0.069,0.107] \\ 
+    %CRSP\_A  & tbl & 66 & 0.08 & [0.853,0.908] & -1.899 & 1 & -0.41 & 1 & -0.279 & [-0.125,0.075] \\ 
+    %CRSP\_A  & tms & 66 & -0.06 & [0.454,0.575] & -3.942 & 1 & 0.96 & 1 & 1.297 & [-0.071,0.275] \\ 
+   CRSP\_Q & lep & 365 & -0.98 & [0.973,1.002] & -1.515 & 1 & 3.16 & 0 & 0.048 & [0.001,0.039] \\ 
+  CRSP\_Q & ldp & 365 & -0.95 & [0.976,1.002] & -1.386 & 1 & 1.82 & 0 & 0.023 & [-0.012,0.026] \\ 
+  %CRSP\_Q & tbl & 261 & -0.09 & [0.956,0.975] & -1.985 & 1 & -0.64 & 1 & -0.099 & [-0.045,0.019] \\ 
+  %CRSP\_Q& tms & 261 & 0.06 & [0.835,0.864] & -4.392 & 1 & 1.44 & 1 & 0.489 & [-0.005,0.104] \\ 
+  CRSP\_M & lep & 1104 & -0.99 & [0.993,1.002] & -1.343 & 1 & 2.40 & 0 & 0.010 & [-0.002,0.009] \\ 
+  CRSP\_M & ldp & 1104 & -0.98 & [0.993,1.002] & -1.221 & 1 & 1.20 & 0 & 0.004 & [-0.005,0.006] \\ 
+  %CRSP\_M & tbl & 792 & -0.13 & [0.992,0.997] & -1.428 & 1 & -0.91 & 1 & -0.043 & [-0.013,0.003] \\ 
+  %CRSP\_M & tms & 792 & 0.04 & [0.958,0.967] & -3.831 & 1 & 1.49 & 1 & 0.156 & [-0.001,0.032] \\ 
+\hline
+\end{tabular}
+ \begin{tablenotes}
+ \small
+\item Data is taken from Amit Goyal’s Website. Stock returns are the SP 500 index log-returns from 1926 to 2017 from the Center for Research in Security Press (CRSP) minus the rolled over 3-month T-bill rate. lep is the log 10 year moving average earnings/price ratio (1926 to 2017). ldp is the log dividend/price ratio (1926 to 2017).
+% tbl is the 3-month T-bill rate (1952 to 2017). tms is the term-spread between long-term government bonds and tbl (1952 to 2017). 
+$p$ denotes the optimal number of lags selected by BIC. pt is a boolean denoting whether the pretest of section $\ref{pretest}$ rejects the null of actual size greater than 0.075. $CI_{\rho}$ and $CI_{\beta}$ denote the confidence interval for $\rho$ and $\beta$, respectively.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
 
- \pagebreak
+Since the original publication of Campbell and Yogo (2006) a sufficiently large amount of data has been generated at the quarterly and monthly sampling frequencies that merits a standalone out-of-sample analysis. Table~\vref{tab:oos} displays model parameter estimates since 2004 until the last available data point in 2017. This relatively small dataset allows no rejection of the null hypothesis for any of the regressors and sampling frequencies considered, however. 
+\begin{table}[ht]
+\centering
+\caption{Out-of-sample estimates of model parameters}
+\label{tab:oos}
+\begin{threeparttable}
+\begin{tabular}{llrrlrrrrrl}
+  \hline
+dataset & $x$ & obs & $\hat{\delta}$ & $CI_{\rho}$ & DF-GLS & $p$ &t-stat & pt & $\hat{\beta}$ & $CI_{\beta}$ \\ 
+  \hline
+  %CRSP\_A  & lep & 14 & -0.97 & [0.036,0.97] & -1.821 & 1 & 1.81 & 0 & 0.527 & [-0.055,1.07] \\ 
+  %CRSP\_A  & ldp & 14 & -0.92 & [-1.468,0.015] & -3.283 & 1 & 1.63 & 0 & 0.446 & [0.319,2.044] \\ 
+  %CRSP\_A  & tbl & 14 & -0.92 & [-1.468,0.015] & -3.283 & 1 & -1.47 & 1 & -3.865 & [0.319,2.044] \\ 
+  %CRSP\_A  & tms & 14 & -0.01 & [0.333,0.593] & -1.791 & 1 & 0.67 & 1 & 2.630 & [-0.258,0.611] \\ 
+  CRSP\_Q  & lep & 53 & -0.99 & [0.792,1.023] & -1.607 & 1 & 1.48 & 0 & 0.101 & [-0.059,0.202] \\ 
+  CRSP\_Q & ldp & 53 & -0.97 & [0.778,1.001] & -1.708 & 1 & 0.86 & 0 & 0.060 & [-0.134,0.142] \\ 
+ % CRSP\_Q  & tbl & 53 & -0.97 & [0.778,1.001] & -1.708 & 1 & -0.67 & 1 & -0.409 & [-0.134,0.142] \\ 
+  %CRSP\_Q  & tms & 53 & 0.19 & [0.904,0.955] & -1.335 & 1 & -0.29 & 1 & -0.248 & [-0.1,0.077] \\ 
+  CRSP\_M & lep & 168 & -0.99 & [0.955,1.014] & -1.211 & 1 & 1.02 & 0 & 0.020 & [-0.025,0.041] \\ 
+  CRSP\_M & ldp & 168 & -0.98 & [0.961,1.012] & -1.091 & 1 & 0.59 & 0 & 0.012 & [-0.052,0.012] \\ 
+  %CRSP\_M & tbl & 168 & 0.21 & [0.991,1.001] & -0.619 & 1 & -0.66 & 1 & -0.120 & [-0.016,0.006] \\ 
+  %CRSP\_M & tms & 168 & 0.10 & [0.991,1.001] & -0.565 & 1 & -0.58 & 1 & -0.142 & [-0.035,0.02] \\ 
+\hline
+\end{tabular}
+ \begin{tablenotes}
+ \small
+\item Data is taken from Amit Goyal’s Website. Stock returns are the SP 500 index log-returns from 2004 to 2017 from the Center for Research in Security Press (CRSP) minus the rolled over 3-month T-bill rate. lep is the log 10 year moving average earnings/price ratio (2004 to 2017). ldp is the log dividend/price ratio (2004 to 2017).
+% tbl is the 3-month T-bill rate (1952 to 2017). tms is the term-spread between long-term government bonds and tbl (1952 to 2017). 
+$p$ denotes the optimal number of lags selected by BIC. pt is a boolean denoting whether the pretest of section $\ref{pretest}$ rejects the null of actual size greater than 0.075. $CI_{\rho}$ and $CI_{\beta}$ denote the confidence interval for $\rho$ and $\beta$, respectively.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\section{Conclusion}
+\label{conclusion}
+
+The Bonferroni Q-test is a valid test of predictability if the regressor's largest autoregressive root is local-to-unity and the innovations of regressor and regressand are highly correlated. It has been shown that the Bonferroni Q-test has important power advantages over the Bonferroni t-test. This study confirms acceptable finite-sample rejection rates when the assumptions of the generalized Bonferroni Q-test are fulfilled. When the regressor is nonlocal-to-unity, however, the Q-test can over-reject the null in finite samples. Further, if innovations are modeled by a non-covariance-stationarity approaching GARCH process, the right-tailed test again tends to over-reject the null of no predictability. Previous evidence of predictability of the earnings-to-price ratio and dividend-to-price ratio could be replicated. Out-of-sample evidence, based on data emerged since the first publication of the method, is however eroding. In particular, both regressors are not found statistically significant at the 5\% confidence level at the monthly as well as the quarterly sampling frequency.
+
+\pagebreak
+
+
 \begin{thebibliography}{}
 
 \bibitem{} 

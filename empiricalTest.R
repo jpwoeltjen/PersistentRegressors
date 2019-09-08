@@ -15,7 +15,7 @@ name <- substr(name, 1, 3)
 # df <- df[as.character(1952:2003),]
 df$Index <- as.numeric(gsub(",","",df$Index))
 max_year <- 2017
-min_year <- 2003
+min_year <- 2004
 
 name_list <- NULL
 var_list <- NULL
@@ -237,16 +237,16 @@ obs_list <- c(obs_list, length(x))
 
 master_df <- data.frame(  name_list,
                           var_list,
-                          # obs_list,
+                          obs_list,
                           delta_list,
                           rho_ci_list,
-                          # df_gls_list,
-                          # lags_list,
+                          df_gls_list,
+                          lags_list,
                           t_stat_list,
                           as.numeric(pretest_list),
                           beta_list,
                           beta_ci_scaled_list)
 
-file_name <- paste('results/empirical_results_', Sys.time(), '.tex', sep='')
-print(xtable(master_df, digits=c(0, 0,0,2,0,2,0,3,0), type = "latex"), file = file_name, include.rownames=FALSE)
+file_name <- paste('results/empirical_results_A_', Sys.time(), '.tex', sep='')
+print(xtable(master_df, digits=c(0, 0,0,0,2,0,3,0,2,0,3,0), type = "latex"), file = file_name, include.rownames=FALSE)
 

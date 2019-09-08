@@ -15,6 +15,7 @@ name <- substr(name, 1, 3)
 # df <- df[as.character(1952:2003),]
 df$Index <- as.numeric(gsub(",","",df$Index))
 max_year <- 201712
+min_year <- 200401
 
 
 name_list <- NULL
@@ -46,6 +47,7 @@ df$excess_log_return <- df$CRSP_SPvwx
 
 df2<- na.omit(df[,c('yyyy','excess_log_return', 'ep')])
 df2 <- df2[df2$yyyy<=max_year,]
+df2 <- df2[df2$yyyy>=min_year,]
 
 x <- log(df2$ep)
 r <- df2$excess_log_return
@@ -95,6 +97,7 @@ obs_list <- c(obs_list, length(x))
 df$dp <- df$D12/df$Index
 df2<- na.omit(df[,c('yyyy','excess_log_return', 'dp')])
 df2 <- df2[df2$yyyy<=max_year,]
+df2 <- df2[df2$yyyy>=min_year,]
 
 
 ggplot(df2[,c('yyyy','excess_log_return', 'dp')], aes(yyyy)) +
@@ -141,6 +144,7 @@ obs_list <- c(obs_list, length(x))
 df2<- na.omit(df[,c('yyyy','excess_log_return', 'tbl')])
 df2 <- df2[df2$yyyy>195112,]
 df2 <- df2[df2$yyyy<=max_year,]
+df2 <- df2[df2$yyyy>=min_year,]
 
 
 
@@ -189,6 +193,7 @@ df$tms <- df$lty - df$tbl
 df2<- na.omit(df[,c('yyyy','excess_log_return', 'tms')])
 df2 <- df2[df2$yyyy>195112,]
 df2 <- df2[df2$yyyy<=max_year,]
+df2 <- df2[df2$yyyy>=min_year,]
 
 
 ggplot(df2[,c('yyyy','excess_log_return', 'tms')], aes(yyyy)) +
@@ -233,16 +238,17 @@ obs_list <- c(obs_list, length(x))
 
 master_df <- data.frame(  name_list,
                           var_list,
-                          # obs_list,
+                          obs_list,
                           delta_list,
                           rho_ci_list,
-                          # df_gls_list,
-                          # lags_list,
+                          df_gls_list,
+                          lags_list,
                           t_stat_list,
                           as.numeric(pretest_list),
                           beta_list,
                           beta_ci_scaled_list)
 
-file_name <- paste('results/empirical_results_', Sys.time(), '.tex', sep='')
-print(xtable(master_df, digits=c(0, 0,0,2,0,2,0,3,0), type = "latex"), file = file_name, include.rownames=FALSE)
+file_name <- paste('results/empirical_results_M_', Sys.time(), '.tex', sep='')
+print(xtable(master_df, digits=c(0, 0,0,0,2,0,3,0,2,0,3,0), type = "latex"), file = file_name, include.rownames=FALSE)
+
 
