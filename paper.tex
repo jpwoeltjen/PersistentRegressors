@@ -88,12 +88,17 @@ Revoking the previous assumption of $\alpha=\gamma=0$ and generalizing instead t
 Q\left(\beta_{0}, \rho\right)=\frac{\sum_{t=1}^{T} x_{t-1}^{\mu}\left[r_{t}-\beta_{0} x_{t-1}-\beta_{u e}\left(x_{t}-\rho x_{t-1}\right)\right]}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}\left(\sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{1 / 2}}>C
 \end{equation}
 is UMP conditional on $\sum_{t=1}^{T} x_{t-1}^{\mu 2}$.
-This Q-statistic, as Campbell and Yogo call it, has an intuitive interpretations when $\beta_{0} = 0$. It is the t-statistic of the $\beta^{\star}$ coefficient in the regression $r_{t}-\beta_{u e}\left(x_{t}-\rho x_{t-1}\right)=\alpha^{\star}+\beta^{\star} x_{t-1}+v_{t}$. This regression can be interpreted as regressing the de-noised returns onto the regressor $x_{t-1}$ where we exploit the information contained in $\rho$ and the correlation of the shocks.
-When $\beta_{u e}=0$, i.e., the correlation of the shocks is zero, the Q-statistic simplifies to the t-statistic which converges to a standard-normal distribution in this case. When $\beta_{u e}!=0$, the t-statistic does not converge to a standard-normal distribution. Instead, as shown by Elliott and Stock (1994), under local-to-unity asymptotic theory it has the null distribution 
+This Q-statistic, as Campbell and Yogo call it, has an intuitive interpretations when $\beta_{0} = 0$. It is the t-statistic of the $\beta^{\star}$ coefficient in the regression
+ \begin{equation}
+ \label{eqn:r_star}
+r_{t}-\beta_{u e}\left(x_{t}-\rho x_{t-1}\right)=\alpha^{\star}+\beta^{\star} x_{t-1}+v_{t}. 
+\end{equation}
+Regression ($\ref{eqn:r_star}$) can be interpreted as regressing the de-noised returns onto the regressor $x_{t-1}$, where the information contained in $\rho$ and the correlation of the shocks is exploited.
+When $\beta_{u e}=0$, i.e., the correlation of the shocks is zero, the Q-statistic simplifies to the t-statistic which converges to a standard-normal distribution in this case. When $\beta_{u e}\neq0$, the t-statistic does not converge to a standard-normal distribution. Instead, as shown by Elliott and Stock (1994), under local-to-unity asymptotic theory it has the null distribution 
 \begin{equation}
 t\left(\beta_{0}\right) \Rightarrow \delta \frac{\tau_{c}}{\kappa_{c}}+\left(1-\delta^{2}\right)^{1 / 2} Z
 \end{equation}
-where $\left(W_{u}(s), W_{e}(s)\right)^{\prime}$ is a two-dimensional Wiener process with correlation $\delta$, $J_{c}(s)$ is defined by $\mathrm{d} J_{c}(s)=c J_{c}(s) \mathrm{d} s+\mathrm{d} W_{e}(s)$ with $J_{c}(0)=0$, $Z$ is a standard normal random variable independent of $\left(W_{e}(s), J_{c}(s)\right)$, $\kappa_{c}=\left(\int J_{c}^{\mu}(s)^{2} \mathrm{d} s\right)^{1 / 2}$, $\tau_{c}=\int J_{c}^{\mu}(s) \mathrm{d} W_{e}(s)$.
+where $\left(W_{u}(s), W_{e}(s)\right)^{\prime}$ is a two-dimensional Wiener process with correlation $\delta$, $J_{c}(s)$ is defined by $\mathrm{d} J_{c}(s)=c J_{c}(s) \mathrm{d} s+\mathrm{d} W_{e}(s)$ with $J_{c}(0)=0$, $Z$ is a standard normal random variable independent of $\left(W_{e}(s), J_{c}(s)\right)$, $\kappa_{c}=\left(\int J_{c}^{\mu}(s)^{2} \mathrm{d} s\right)^{1 / 2}$, and $\tau_{c}=\int J_{c}^{\mu}(s) \mathrm{d} W_{e}(s)$.
 
 Within the local-to-unity asymptotic theory the persistence of the process $x_{t}$ is modeled as $\rho=1+c / T$ where $c$ is a constant and $T$ is the sample size. Hence, when $c<0$, $x_{t}$ is $I(0)$ but highly persistent and its sample moments do not converge in probability to constants but to functionals of a diffusion process instead.  The t-test is not feasible since it depends on the unknown parameter $\rho$ through $\tau_{c} / \kappa_{c}$ which also makes it non-standard. 
 
@@ -201,6 +206,9 @@ and
 \end{equation}
 A 5\% one-sided or 10\% two-sided test of $H_0: \beta = 0$ is based on the 90\% Bonferroni confidence interval
 $$[\underline{\beta}(\overline{\rho}), \overline{\beta}(\underline{\rho})]$$
+\subsection{Power comparison}
+\label{power}
+Campbell and Yogo (2006) evaluate the power of the feasible Q-test under local-to-unity asymptotics. In this framework the OLS estimators $\hat{\beta}$ and $\hat{\rho}$ are consistent at rate $T$. Thus, to have a meaningful comparison, local alternatives of the form $\beta = \beta_0 + b/T$ are considered where $b$ is a constant. The feasible Q-test is found to dominate the feasible t-test in all cases considered with increasing relative power gain in increasing $|\delta|$ and decreasing $|c|$. Their analysis shows that in the case of a highly persistent regressor, using the Q-test over the t-test provides a comparatively important gain in power. Their numerical refinement of the Bonferroni method provides a substantial further gain in power for the Q-test since this test exploits information about $\rho$. This makes its confidence interval for $\beta$ given $\rho$ more sensitive to $\rho$. Hence, without the refinement the Bonferroni Q-test is too conservative.
 
 \section{Monte Carlo simulation}
 
@@ -242,7 +250,7 @@ To confirm the correct implementation of the procedure, Table~\vref{tab:cy} repl
 \end{threeparttable}
 \end{table}
 
-Next, slightly different input parameters are chosen. If the results differ qualitatively, the previous findings might be the result of selection bias. As demonstrated by Table~\vref{tab:cy_changed}, no such suspicion is warranted. As long as the sample size is at least 100 and $\rho$ is local to unity, the Bonferroni Q-test has acceptable finite sample rejection rates. The infeasible Q-test, unsurprisingly, always has rejection rate close to $\alpha$. The t-test, on the other hand, significantly over-rejects when the innovations are highly correlated and $\rho$ is local to unity. It should be noted, however, that the two-sided Bonferroni Q-test tends to under-reject for the chosen parameters. 
+Next, slightly different input parameters are chosen. If the results differ qualitatively, the previous findings might be the result of selection bias. As demonstrated by Table~\vref{tab:cy_changed}, no such suspicion is warranted. As long as the sample size is at least 100 and $\rho$ is local to unity, the Bonferroni Q-test has acceptable finite sample rejection rates. The infeasible Q-test, unsurprisingly, always has rejection rates close to $\alpha$. The t-test, on the other hand, significantly over-rejects when the innovations are highly correlated and $\rho$ is local to unity. It should be noted, however, that the two-sided Bonferroni Q-test tends to under-reject for the chosen parameters. 
 \begin{table}[h!]
 \caption{Finite-sample rejection rates}
 \centering
