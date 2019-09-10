@@ -12,11 +12,7 @@
 	}
 
 \date{\today}
-% Hint: \title{what ever}, \author{who care} and \date{when ever} could stand 
-% before or after the \begin{document} command 
-% BUT the \maketitle command MUST come AFTER the \begin{document} command! 
 \begin{document}
-
 \maketitle
 
 
@@ -25,21 +21,24 @@ Campbell and Yogo (2006) propose a Bonferroni-type procedure for valid inference
 \end{abstract}
 
 \section{Introduction}
-The question whether asset returns can be predicted with the help of observable variables is of great interest to financial institutions and the public as a whole. One of the most economically intuitive relationships exists between the price of a company's stock and the discounted earnings it will generate in the future. Since future earnings are not observable, current earnings or dividends or moving averages of them are often used as a proxy. To statistically test whether these variables are indeed predictive, one may test the significance of coefficients in a regression of the supposedly predictive variable onto equity market returns. The most straightforward way of doing this is via the t-test. Elliott and Stock (1994) find that this test has a nonstandard distribution under the null if the largest autoregressive root of the regressor is close to unity and the innovations of regressor and regressand are correlated. Given the presence of these nuisances, the t-test will lead to invalid inference. In this context, Campbell and Yogo (2006) develop a test that exploits information about the autoregressive root of the regressor and thus tries to overcome this issue. Section $\ref{regression}$ formalizes the regression setup and outlines the problem. Section $\ref{Derivation of the tests}$ explains the derivation of the Campbell and Yogo's (2006) test. This is done by first considering optimal tests, albeit under unrealistic assumptions, in section $\ref{Infeasible tests}$. This section also establishes the conditions for a nonstandard distribution of the t-statistic. A pretest based on these conditions is described in section $\ref{pretest}$. Section $\ref{Making the Q-test feasible}$ details the use of Bonferroni's inequality in making the test feasible.  The test is further generalized to more realistic assumptions in section $\ref{implementation}$ and its mathematical implementation is described. Section $\ref{power}$ summarizes the power advantages of the test found by Campbell and Yogo (2006). Section $\ref{Monte Carlo simulation}$ proceeds with evaluating finite-sample rejection rates of the feasible Q-test under various innovation distributions and violations of assumptions made in section $\ref{implementation}$. First, Monte Carlo evidence of Campbell and Yogo (2006) is scrutinized and replicated in section $\ref{Simulation with Gaussian innovations}$. Section $\ref{Simulation with weakly persistent regressors and Gaussian innovations}$ demonstrates over-rejection in finite-samples when the largest autoregressive root of the regressor is nonlocal-to-unity. An attempt of modeling innovations by a multivariate GARCH process is then made in section $\ref{Simulation with CCC-GARCH innovations}$. This is further refined in section $\ref{Simulation with common GARCH innovations}$ where it is hypothesized that innovations variances of both the regressor and the regressand share a common stochastic trend that is modeled by a GARCH process. Section $\ref{Simulation with common GJR-GARCH innovations}$ concludes the Monte Carlo evidence by simulation of the common stochastic trend by GJR-GARCH with conditional leptokurtosis. Empirical findings are replicated and evaluated on out-of-sample data in section $\ref{Empirical Results}$. Finally, section $\ref{conclusion}$ concludes.
+The question whether asset returns can be predicted with the help of observable variables is of great interest to financial institutions and the public as a whole. One of the most economically intuitive relationships exists between the price of a company's stock and the discounted earnings it will generate in the future. Since future earnings are not observable, current earnings or dividends or moving averages of them are often used as a proxy. To statistically test whether these variables are indeed predictive, one may test the significance of coefficients in a regression of the supposedly predictive variable onto equity market returns. The most straightforward way of doing this is via the t-test. Elliott and Stock (1994) find that this test has a nonstandard distribution under the null if the largest autoregressive root of the regressor is close to unity and the innovations of regressor and regressand are correlated. Given the presence of these nuisances, the t-test will lead to invalid inference. In this context, Campbell and Yogo (2006) develop a test that exploits information about the autoregressive root of the regressor and thus tries to overcome this issue. Section $\ref{regression}$ formalizes the regression setup and outlines the problem. Section $\ref{Derivation of the tests}$ explains the derivation of the Campbell and Yogo's (2006) test. This is done by first considering optimal tests, albeit under unrealistic assumptions, in section $\ref{Infeasible tests}$. This section also establishes the conditions for a nonstandard distribution of the t-statistic. A pretest based on these conditions is described in section $\ref{pretest}$. Section $\ref{Making the Q-test feasible}$ details the use of Bonferroni's inequality in making the test feasible.  The test is further generalized to more realistic assumptions in section $\ref{implementation}$ and its mathematical implementation is described. Section $\ref{power}$ summarizes the power advantages of the test found by Campbell and Yogo (2006). Section $\ref{Monte Carlo simulation}$ proceeds with evaluating finite-sample rejection rates of the feasible Q-test under various innovation distributions and violations of assumptions made in section $\ref{implementation}$. First, Monte Carlo evidence of Campbell and Yogo (2006) is scrutinized and replicated in section $\ref{Simulation with Gaussian innovations}$. Section $\ref{Simulation with weakly persistent regressors and Gaussian innovations}$ demonstrates over-rejection in finite-samples when the largest autoregressive root of the regressor is nonlocal-to-unity. An attempt of modeling innovations by a multivariate GARCH process is then made in section $\ref{Simulation with CCC-GARCH innovations}$. This is further refined in section $\ref{Simulation with common GARCH innovations}$ where it is hypothesized that innovation variances of both the regressor and the regressand share a common stochastic trend that is modeled by a GARCH process. Section $\ref{Simulation with common GJR-GARCH innovations}$ concludes the Monte Carlo evidence by simulation of the common stochastic trend by GJR-GARCH with conditional leptokurtosis. Empirical findings are replicated and evaluated on out-of-sample data in section $\ref{Empirical Results}$. Finally, section $\ref{conclusion}$ concludes.
 
 \section{The regression setup and its problem}
 \label{regression}
-With log-returns $r_{t}$ observable at time $t$ and lagged supposedly predictive variable $x_{t-1}$ observable at $t-1$  Campbell and Yogo (2006) consider the regression system
+With log-returns $r_{t}$ observable at time $t$ and lagged supposedly predictive variable $x_{t-1}$ observable at $t-1$,  Campbell and Yogo (2006) consider the regression system
 \begin{align} 
 \label{eqn:1}
 r_{t} = \alpha + \beta x_{t-1} + u_{t} \\ 
 \label{eqn:2}
-x_{t} = \gamma + \rho  x_{t-1} + e_{t}
+x_{t} = \gamma + \rho  x_{t-1} + e_{t}.
 \end{align}
-They further assume normality i.e. $w_{t}=\left(u_{t}, e_{t}\right)^{\prime} \stackrel{i i d}{\sim} \mathrm{N}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where  $\boldsymbol{\Sigma}=\left[\begin{array}{cc}{\sigma_{u}^{2}} & {\sigma_{u e}} \\ {\sigma_{u e}} & {\sigma_{e}^{2}}\end{array}\right]$ is known .
+They further assume normality, i.e., 
+\begin{equation}
+w_{t}=\left(u_{t}, e_{t}\right)^{\prime} \stackrel{i i d}{\sim} \mathrm{N}(\boldsymbol{0}, \boldsymbol{\Sigma})
+\end{equation} where  $\boldsymbol{\Sigma}=\left[\begin{array}{cc}{\sigma_{u}^{2}} & {\sigma_{u e}} \\ {\sigma_{u e}} & {\sigma_{e}^{2}}\end{array}\right]$ is known.
 
 
-Whether $x_{t-1}$ is indeed predictive may be ascertained by evaluating the statistically significance of the $\beta$ coefficient obtained from an ordinary least squares [OLS] regression i.e. testing the null $H_0: \beta = 0$. A common approach is to perform a t-test of $\beta$. Elliott and Stock (1994), however, show that the t-test leads to invalid inference if $x_{t}$ is persistent i.e. if $\rho$ is close to unity and the noise terms $u_{t}$ and $e_{t}$ are highly correlated. Since the regressor is a valuation ratio which is a function of the stock price and the regressand is the stock's return which is also a function of the current price we have reason to believe that $u_{t}$ and $e_{t}$ will indeed be highly (negatively) correlated. Section ... will confirm this belief by empirical sample moments. It will also be seen that the regressor is highly persistent. Hence, we have to worry about the validity of the t-test. A pretest that tests the null of the actual size of the t-test being greater than some deemed-acceptable nominal size $\alpha$ and is based on the joint presence of both aforementioned conditions is explained in section ....
+Whether $x_{t-1}$ is indeed predictive may be ascertained by evaluating the statistically significance of the $\beta$ coefficient obtained from an ordinary least squares [OLS] regression, i.e., testing the null hypothesis $H_0: \beta = 0$. A common approach is to perform a t-test of $\beta$. Elliott and Stock (1994), however, show that the t-test leads to invalid inference if $x_{t}$ is persistent, i.e., if $\rho$ is close to unity, and the noise terms $u_{t}$ and $e_{t}$ are highly correlated. Since the regressor is a valuation ratio, which is a function of the stock price, and the regressand is the stock's return, which is also a function of the current price, there is strong reason to believe that $u_{t}$ and $e_{t}$ will indeed be highly (negatively) correlated. Sample correlations, $\hat{\delta}$, in Table~\vref{tab:cy_sp} will confirm this belief. It will also be seen that the regressor is highly persistent, manifested by the 90\% confidence interval for the largest autoregressive root containing unity. Hence, worry about the validity of the t-test is justified. A pretest, testing the null of the actual size of the t-test being greater than some deemed-acceptable nominal size $\alpha$ based on the joint presence of both aforementioned conditions, is explained in more detail in section $\ref{pretest}$.
 
 \section{Derivation of the tests}
 \label{Derivation of the tests}
@@ -47,15 +46,15 @@ Whether $x_{t-1}$ is indeed predictive may be ascertained by evaluating the stat
 \label{Infeasible tests}
 In developing their test, Campbell and Yogo (2006) start by considering the t-statistic 
 \begin{equation}
-t\left(\beta_{0}\right)=\frac{\widehat{\beta}-\beta_{0}}{\sigma_{u}\left(\sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{-1 / 2}}
+t\left(\beta_{0}\right)=\frac{\widehat{\beta}-\beta_{0}}{\sigma_{u}\left(\sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{-1 / 2}},
 \end{equation}
-where $x_{t-1}^{\mu}=x_{t-1}-T^{-1} \sum_{t=1}^{T} x_{t-1}$ denotes the de-meaned regressor and $\widehat{\beta}$ is the OLS estimate of $\beta$. They argue that this test ignores information contained in the system (2) and can thus not be optimal. To see this consider the joint log likelihood function of the system ($\ref{eqn:1}$, $\ref{eqn:2}$)
+where $x_{t-1}^{\mu}=x_{t-1}-T^{-1} \sum_{t=1}^{T} x_{t-1}$ denotes the de-meaned regressor and $\widehat{\beta}$ is the OLS estimate of $\beta$. They argue that this test ignores information contained in the system ($\ref{eqn:1}$, $\ref{eqn:2}$) and can thus not be optimal. To see this, consider the joint log likelihood function of the system ($\ref{eqn:1}$, $\ref{eqn:2}$)
 \begin{equation}
 \begin{aligned} L(\beta, \rho, \alpha, \gamma)=&-\frac{1}{1-\delta^{2}} \sum_{t=1}^{T}\left[\frac{\left(r_{t}-\alpha-\beta x_{t-1}\right)^{2}}{\sigma_{u}^{2}}-2 \delta \frac{\left(r_{t}-\alpha-\beta x_{t-1}\right)\left(x_{t}-\gamma-\rho x_{t-1}\right)}{\sigma_{u} \sigma_{e}}\right.\\ &\left.+\frac{\left(x_{t}-\gamma-\rho x_{t-1}\right)^{2}}{\sigma_{e}^{2}}\right] \end{aligned}
 \end{equation}
 and observe that the t-test squared is equal to the likelihood ratio test statistic
 \begin{equation}
-\max _{\beta, \rho, \alpha, \gamma} L(\beta, \rho, \alpha, \gamma)-\max _{\rho, \alpha, \gamma} L\left(\beta_{0}, \rho, \alpha, \gamma\right)=t\left(\beta_{0}\right)^{2}
+\max _{\beta, \rho, \alpha, \gamma} L(\beta, \rho, \alpha, \gamma)-\max _{\rho, \alpha, \gamma} L\left(\beta_{0}, \rho, \alpha, \gamma\right)=t\left(\beta_{0}\right)^{2}.
 \end{equation}
 But this test statistic turns out to be the same if only the marginal log likelihood 
 \begin{equation}
@@ -63,61 +62,61 @@ L(\beta, \alpha)=-\sum_{t=1}^{T}\left(r_{t}-\alpha-\beta x_{t-1}\right)^{2}
 \end{equation}
 is used in its computation. Thus the t-test ignores information about $\rho$.
 
-To reason about how to incorporate information about $\rho$ into the test Campbell and Yogo (2006) assume $\rho$ to be known at first. If, further, the assumption $\alpha=\gamma=0$ is made, the only unknown variable that remains is $\beta$. Now the likelihood function can be denoted as $L(\beta)$. If one restricts oneself to consider only the simple alternative of the form $\beta=\beta_{1}$ one can reason by the Neyman–Pearson Lemma that the most powerful test is of the form
+To reason about how to incorporate information about $\rho$ into the test Campbell and Yogo (2006) assume $\rho$ to be known at first. If, further, the assumption $\alpha=\gamma=0$ is made, the only unknown variable that remains is $\beta$. Now, the likelihood function can be denoted as $L(\beta)$. If one restricts oneself to consider only the simple alternative of the form $\beta=\beta_{1}$ one can reason by the Neyman–Pearson Lemma that the most powerful test is of the form
 \begin{equation}
-\begin{aligned} \sigma_{u}^{2}\left(1-\delta^{2}\right)\left(L\left(\beta_{1}\right)-L\left(\beta_{0}\right)\right)=& 2\left(\beta_{1}-\beta_{0}\right) \sum_{t=1}^{T} x_{t-1}\left[r_{t}-\beta_{u e}\left(x_{t}-\rho x_{t-1}\right)\right] \\ &-\left(\beta_{1}^{2}-\beta_{0}^{2}\right) \sum_{t=1}^{T} x_{t-1}^{2}>C \end{aligned}
+\begin{aligned} \sigma_{u}^{2}\left(1-\delta^{2}\right)\left(L\left(\beta_{1}\right)-L\left(\beta_{0}\right)\right)=& 2\left(\beta_{1}-\beta_{0}\right) \sum_{t=1}^{T} x_{t-1}\left[r_{t}-\beta_{u e}\left(x_{t}-\rho x_{t-1}\right)\right] \\ &-\left(\beta_{1}^{2}-\beta_{0}^{2}\right) \sum_{t=1}^{T} x_{t-1}^{2}>C, \end{aligned}
 \end{equation}
 with $\beta_{u e}=\sigma_{u e} / \sigma_{e}^{2}$ and $C$ being some constant.
-This optimal test is not uniformly most powerful (UMP), however, since it is a weighted sum of minimal sufficient statistics and the weights depend on $\beta_{1}$. For that reason, Campbell and Yogo (2006) propose to condition the test on the ancillary statistic  $\sum_{t=1}^{T} x_{t-1}^{2}$. As a result the test can be simplified to
+This optimal test is not uniformly most powerful [UMP], however, since it is a weighted sum of minimal sufficient statistics and the weights depend on $\beta_{1}$. For that reason, Campbell and Yogo (2006) propose to condition the test on the ancillary statistic  $\sum_{t=1}^{T} x_{t-1}^{2}$. As a result the test can be simplified to
 \begin{equation}
- \sum_{t=1}^{T} x_{t-1}\left[r_{t}-\beta_{u e}\left(x_{t}-\rho x_{t-1}\right)\right]>C
+ \sum_{t=1}^{T} x_{t-1}\left[r_{t}-\beta_{u e}\left(x_{t}-\rho x_{t-1}\right)\right]>C,
 \end{equation}
 which is UMP for alternatives of the form $\beta_{1}>\beta_{0}$ when $\rho$ is known.
 
-For the test-statistic to have a standard normal distribution under the null Campbell and Yogo (2006) propose to recenter and rescale which results in 
+For the test-statistic to have a standard normal distribution under the null, Campbell and Yogo (2006) propose to recenter and rescale it, which results in 
 \begin{equation}
-\frac{\sum_{t=1}^{T} x_{t-1}\left[r_{t}-\beta_{0} x_{t-1}-\beta_{u e}\left(x_{t}-\rho x_{t-1}\right)\right]}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}\left(\sum_{t=1}^{T} x_{t-1}^{2}\right)^{1 / 2}}>C
+\frac{\sum_{t=1}^{T} x_{t-1}\left[r_{t}-\beta_{0} x_{t-1}-\beta_{u e}\left(x_{t}-\rho x_{t-1}\right)\right]}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}\left(\sum_{t=1}^{T} x_{t-1}^{2}\right)^{1 / 2}}>C.
 \end{equation}
 Revoking the previous assumption of $\alpha=\gamma=0$ and generalizing instead to any unknown  $\alpha$ and $\gamma$ by replacing $x_{t-1}$ by its demeaned value $x_{t-1}^{\mu}$, the test
 \begin{equation}
 Q\left(\beta_{0}, \rho\right)=\frac{\sum_{t=1}^{T} x_{t-1}^{\mu}\left[r_{t}-\beta_{0} x_{t-1}-\beta_{u e}\left(x_{t}-\rho x_{t-1}\right)\right]}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}\left(\sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{1 / 2}}>C
 \end{equation}
 is UMP conditional on $\sum_{t=1}^{T} x_{t-1}^{\mu 2}$.
-This Q-statistic, as Campbell and Yogo call it, has an intuitive interpretations when $\beta_{0} = 0$. It is the t-statistic of the $\beta^{\star}$ coefficient in the regression
+This Q-statistic, as Campbell and Yogo (2006) call it, has an intuitive interpretations when $\beta_{0} = 0$. It is the t-statistic of the $\beta^{\star}$ coefficient in the regression
  \begin{equation}
  \label{eqn:r_star}
 r_{t}-\beta_{u e}\left(x_{t}-\rho x_{t-1}\right)=\alpha^{\star}+\beta^{\star} x_{t-1}+v_{t}. 
 \end{equation}
 Regression ($\ref{eqn:r_star}$) can be interpreted as regressing the de-noised returns onto the regressor $x_{t-1}$, where the information contained in $\rho$ and the correlation of the shocks is exploited.
-When $\beta_{u e}=0$, i.e., the correlation of the shocks is zero, the Q-statistic simplifies to the t-statistic which converges to a standard-normal distribution in this case. When $\beta_{u e}\neq0$, the t-statistic does not converge to a standard-normal distribution. Instead, as shown by Elliott and Stock (1994), under local-to-unity asymptotic theory it has the null distribution 
+When $\beta_{u e}=0$, i.e., the correlation of the shocks is zero, the Q-statistic simplifies to the t-statistic which converges to a standard-normal distribution in this case. When $\beta_{u e}\neq0$, the t-statistic does not converge to a standard normal distribution. Instead, as shown by Elliott and Stock (1994), under local-to-unity asymptotic theory it has the null distribution 
 \begin{equation}
-t\left(\beta_{0}\right) \Rightarrow \delta \frac{\tau_{c}}{\kappa_{c}}+\left(1-\delta^{2}\right)^{1 / 2} Z
+\label{lua_t}
+t\left(\beta_{0}\right) \Rightarrow \delta \frac{\tau_{c}}{\kappa_{c}}+\left(1-\delta^{2}\right)^{1 / 2} Z,
 \end{equation}
 where $\left(W_{u}(s), W_{e}(s)\right)^{\prime}$ is a two-dimensional Wiener process with correlation $\delta$, $J_{c}(s)$ is defined by $\mathrm{d} J_{c}(s)=c J_{c}(s) \mathrm{d} s+\mathrm{d} W_{e}(s)$ with $J_{c}(0)=0$, $Z$ is a standard normal random variable independent of $\left(W_{e}(s), J_{c}(s)\right)$, $\kappa_{c}=\left(\int J_{c}^{\mu}(s)^{2} \mathrm{d} s\right)^{1 / 2}$, and $\tau_{c}=\int J_{c}^{\mu}(s) \mathrm{d} W_{e}(s)$.
 
-Within the local-to-unity asymptotic theory the persistence of the process $x_{t}$ is modeled as $\rho=1+c / T$ where $c$ is a constant and $T$ is the sample size. Hence, when $c<0$, $x_{t}$ is $I(0)$ but highly persistent and its sample moments do not converge in probability to constants but to functionals of a diffusion process instead.  The t-test is not feasible since it depends on the unknown parameter $\rho$ through $\tau_{c} / \kappa_{c}$ which also makes it non-standard. 
+Within the local-to-unity asymptotic theory the persistence of the process $x_{t}$ is modeled as $\rho=1+c / T$ where $c$ is a constant and $T$ is the sample size. Hence, when $c<0$, $x_{t}$ is $I(0)$ but highly persistent and its sample moments do not converge in probability to constants but to functionals of a diffusion process instead. The t-test is not feasible since it depends on the unknown parameter $\rho$ through $\tau_{c} / \kappa_{c}$, which also makes it non-standard. 
 
 \subsection{A pretest}
 \label{pretest}
-From equation ... it's easy to see that if $\delta = 0$ the nuisance term $\tau_{c} / \kappa_{c}$ vanishes and the t-statistic collapses to the standard normal  random variable $Z$. It therefore makes sense to test whether $\delta$ is different from zero. If it isn't, one can infer that the t-statistic is approximately standard normal and inference based on it is valid. This, however, is not the only condition in which there is no size distortion. Phillips (1987) shows that if $x_{t}$ is not persistent, $\tau_{c} / \kappa_{c}$ converges to a different standard normal random variable $Z^{\star}$. Hence the t-statistic, as a sum of two independent standard normal random variables, is likewise standard normal. 
+From equation ($\ref{lua_t}$) it's easy to see that if $\delta = 0$, the nuisance term $\delta \frac{\tau_{c}}{\kappa_{c}}$ vanishes and the t-statistic collapses to the standard normal random variable $Z$. It therefore makes sense to test whether $\delta$ is different from zero. If it isn't, one can infer that the t-statistic is approximately standard normal and inference based on it is valid. This, however, is not the only condition in which there is no size distortion. Phillips (1987) shows that if $x_{t}$ is not persistent, $\tau_{c} / \kappa_{c}$ converges to a different standard normal random variable $Z^{\star}$. Hence the t-statistic, as a sum of two independent standard normal random variables, is likewise standard normal. 
 
-Campbell and Yogo (2006) use these facts as bases for a pretest. This test supposes that an actual size $\alpha^{\star}  \geq \alpha$ may be acceptable if its not much greater than the nominal size $\alpha$. It then tests whether $\alpha^{\star}$ is greater than a prespecified acceptable size. It would be tempting to use a unit root test and infer no size distortion if its null of non-stationarity can be rejected. Elliott and Stock (1994) show, however, that this does not guarantee valid inference via the t-statistic. Instead, Campbell and Yogo (2006) use a unit root test statistic to construct a confidence interval for $c$ by inverting its alternative distribution in the spirit of Stock (1991). $\delta$, on the other hand, can be consistently estimated from the residuals of regression ($\ref{eqn:1}$, $\ref{eqn:2}$). The size of the t-statistic forms a two-dimensional surface in the $c$-$\delta$-parameter space. If the confidence interval for $c$ lies strictly outside the region where the size is above the acceptable threshold for $\hat{\delta}$, the null of unacceptable size distortion can be rejected. This test is implemented with tables provided by Campbell and Yogo (2006) which use the DF-GLS test statistic proposed by Elliott et al. (1996) to construct the confidence interval for $c$. My application uses the closest tabulated values to the estimated values without interpolating.
+Campbell and Yogo (2006) use these facts as bases for a pretest. This test supposes that an actual size $\alpha^{\star}  \geq \alpha$ may be acceptable if its not much greater than the nominal size $\alpha$. It then tests whether $\alpha^{\star}$ is greater than a prespecified acceptable size. It would be tempting to use a unit root test and infer no size distortion if its null of non-stationarity can be rejected. Elliott and Stock (1994) show, however, that this does not guarantee valid inference via the t-statistic. Instead, Campbell and Yogo (2006) use a unit root test statistic to construct a confidence interval for $c$ by inverting its alternative distribution in the spirit of Stock (1991). $\delta$, on the other hand, can be consistently estimated from the residuals of regressions ($\ref{eqn:1}$, $\ref{eqn:2}$). The size of the t-statistic forms a two-dimensional surface in the $c$-$\delta$-parameter space. If the confidence interval for $c$ lies strictly outside the region where the size is above the acceptable threshold for $\hat{\delta}$, the null of unacceptable size distortion can be rejected. This test is implemented with tables provided by Campbell and Yogo (2006), who use the DF-GLS test statistic proposed by Elliott et al. (1996) to construct the confidence interval for $c$. The application accompanying uses the closest tabulated values to the estimated values without interpolating.
 
 \subsection{Making the Q-test feasible}
 \label{Making the Q-test feasible}
-When the pretest cannot reject the null of unacceptable size distortion we cannot use the unadjusted t-test to do inference. While the Q-test is UMP when $\rho$ and $\delta$ are known, in practice this is not the case. Furthermore, $\rho$ cannot be estimated consistently since $\operatorname{Var}\left(x_{t}\right)=\frac{\sigma_{e}^{2}}{1-\rho^{2}}$ gets large if $\rho$ is local to unity. Instead, as described in the previous section, Campbell and Yogo (2006) construct a $100\left(1-\alpha_{1}\right) \%$ confidence interval, $C_{\rho}\left(\alpha_{1}\right)$ for $\rho$ from a unit root test statistic. They then construct $C_{\beta | \rho}\left(\alpha_{2}\right)$, a $100\left(1-\alpha_{2}\right) \%$ conditional on $\rho$ confidence interval for $\beta$. To marginalize $\rho$ and thus getting an unconditional confidence interval for $\beta$ they take the union over $\rho \in C_{\rho}\left(\alpha_{1}\right)$
+When the pretest cannot reject the null of unacceptable size distortion inference cannot be based the t-test without adjustment. While the Q-test is UMP when $\rho$ and $\delta$ are known, in practice this is not the case. Furthermore, $\rho$ cannot be estimated consistently since its OLS estimator converges at rate $T$. Instead, analogously to the description in the previous section, Campbell and Yogo (2006) construct a $100\left(1-\alpha_{1}\right) \%$ confidence interval, $C_{\rho}\left(\alpha_{1}\right)$ for $\rho$ from a unit root test statistic. They then construct $C_{\beta | \rho}\left(\alpha_{2}\right)$, a $100\left(1-\alpha_{2}\right) \%$ conditional on $\rho$ confidence interval for $\beta$. To marginalize $\rho$ and thus getting an unconditional confidence interval for $\beta$ they take the union over $\rho \in C_{\rho}\left(\alpha_{1}\right)$
 \begin{equation}
-C_{\beta}(\alpha)=\bigcup_{\rho \in C_{\rho}\left(\alpha_{1}\right)} C_{\beta | \rho}\left(\alpha_{2}\right)
+C_{\beta}(\alpha)=\bigcup_{\rho \in C_{\rho}\left(\alpha_{1}\right)} C_{\beta | \rho}\left(\alpha_{2}\right).
 \end{equation}
-
 $C_{\beta}(\alpha)$ has coverage of at least $100(1-\alpha) \%$ with $\alpha=\alpha_{1}+\alpha_{2}$. This follows from Bonferroni's inequality which gives this method its name.  
-When the regressor is a valuation ratio, we should expect $\delta$ to be negative. Further, note that $\beta(\rho)$ is given by 
+When the regressor is a valuation ratio, a negative value for $\delta$ should be expected. Further, note that $\beta(\rho)$ is given by 
 \begin{equation}
-\beta(\rho)=\frac{\sum_{t=1}^{T} x_{t-1}^{\mu}\left[r_{t}-\beta_{u e}\left(x_{t}-\rho x_{t-1}\right)\right]}{\sum_{t=1}^{T} x_{t-1}^{\mu 2}}
+\beta(\rho)=\frac{\sum_{t=1}^{T} x_{t-1}^{\mu}\left[r_{t}-\beta_{u e}\left(x_{t}-\rho x_{t-1}\right)\right]}{\sum_{t=1}^{T} x_{t-1}^{\mu 2}}.
 \end{equation}
-Then the estimate of $\beta$ declines linearly in $\rho$ and its confidence interval is 
+Hence, the estimate of $\beta$ declines linearly in $\rho$ and its confidence interval is 
 \begin{equation}
-C_{\beta}(\alpha)=\left[\underline{\beta}\left(\overline{\rho}\left(\overline{\alpha}_{1}\right), \alpha_{2}\right), \overline{\beta}\left(\underline{\rho}\left(\underline{\alpha}_{1}\right), \alpha_{2}\right)\right]
+C_{\beta}(\alpha)=\left[\underline{\beta}\left(\overline{\rho}\left(\overline{\alpha}_{1}\right), \alpha_{2}\right), \overline{\beta}\left(\underline{\rho}\left(\underline{\alpha}_{1}\right), \alpha_{2}\right)\right],
 \end{equation}
 with $C_{\rho}\left(\alpha_{1}\right)= \left[\underline{\rho}\left(\underline{\alpha}_{1}\right), \overline{\rho}\left(\overline{\alpha}_{1}\right)\right]$ being the confidence interval for $\rho$, $\underline{\alpha}_{1}=\operatorname{Pr}\left(\rho<\underline{\rho}\left(\underline{\alpha}_{1}\right)\right)$, $\overline{\alpha}_{1}=\operatorname{Pr}\left(\rho>\overline{\rho}\left(\overline{\alpha}_{1}\right)\right)$, and $\alpha_{1}=\underline{\alpha}_{1}+\overline{\alpha}_{1}$. We also know that the Q-statistic is normally distributed. Let $z_{\alpha_{2} / 2}$ denote the $1-\alpha_{2} / 2$ quantile of the standard normal distribution. Then the lower bound is given by
 \begin{equation}
@@ -125,10 +124,9 @@ with $C_{\rho}\left(\alpha_{1}\right)= \left[\underline{\rho}\left(\underline{\a
 \end{equation}
 and the upper bound is given by
 \begin{equation}
-\overline{\beta}\left(\underline{\rho}\left(\underline{\alpha}_{1}\right), \alpha_{2}\right)=\beta \left(\underline{\rho}\left(\underline{\alpha}_{1}\right) \right)+z_{\alpha_{2} / 2} \sigma_{u}\left(\frac{1-\delta^{2}}{\sum_{t=1}^{T} x_{t-1}^{\mu 2}}\right)^{1 / 2}
+\overline{\beta}\left(\underline{\rho}\left(\underline{\alpha}_{1}\right), \alpha_{2}\right)=\beta \left(\underline{\rho}\left(\underline{\alpha}_{1}\right) \right)+z_{\alpha_{2} / 2} \sigma_{u}\left(\frac{1-\delta^{2}}{\sum_{t=1}^{T} x_{t-1}^{\mu 2}}\right)^{1 / 2}.
 \end{equation}
-
-If this confidence interval does not contain zero, we infer that the regressor has predictive power. While this test is valid, it is conservative, however, since Bonferroni's inequality is likely to be strict i.e. the coverage of $C_{\beta}(\alpha)$ is likely greater than $100(1-\alpha) \%$. For that reason Campbell and Yogo (2006) refine the confidence interval based on a numerical method proposed by Cavanagh et al. (1995). To obtain a tighter confidence interval with significance level $\widetilde{\alpha}$ according to this method $\alpha_{2}$ is fixed first. $\operatorname{Pr}\left(\underline{\beta}\left(\overline{\rho}\left(\overline{\alpha}_{1}\right), \alpha_{2}\right)>\beta\right)$ is then evaluated for each $\delta$ and $\overline{\alpha}_{1}$ is selected such that 
+If this confidence interval does not contain zero, the regressor is inferred to have predictive power. While this test is valid, it is conservative, however, since Bonferroni's inequality is likely to be strict, i.e., the coverage of $C_{\beta}(\alpha)$ is likely greater than $100(1-\alpha) \%$. For that reason, Campbell and Yogo (2006) refine the confidence interval based on a numerical method proposed by Cavanagh et al. (1995). To obtain a tighter confidence interval with significance level $\widetilde{\alpha}$, according to this method, $\alpha_{2}$ is fixed first. $\operatorname{Pr}\left(\underline{\beta}\left(\overline{\rho}\left(\overline{\alpha}_{1}\right), \alpha_{2}\right)>\beta\right)$ is then evaluated for each $\delta$, and $\overline{\alpha}_{1}$ is selected such that 
 \begin{equation}
 \operatorname{Pr}\left(\underline{\beta}\left(\overline{\rho}\left(\overline{\alpha}_{1}\right),\alpha_{2}\right)>\beta\right) \leq \widetilde{\alpha} / 2\end{equation}
 holds for all $c$ and, importantly,
@@ -140,7 +138,7 @@ Similarly, $\underline{\alpha}_{1}$ is selected such that
 \begin{equation}
 \operatorname{Pr}\left(\overline{\beta}\left(\underline{\rho}\left(\underline{\alpha}_{1}\right), \alpha_{2}\right)<\beta\right) \leq \widetilde{\alpha} / 2
 \end{equation}
-holds again for all $c$ with equality at some $c$. A one-sided Bonferroni test based a confidence interval thus obtained has size $\widetilde{\alpha} / 2$ for some permissible $c$ while a two-sided test has at most size  $\widetilde{\alpha}$ .  
+holds again for all $c$ with equality at some $c$. A one-sided Bonferroni test based a confidence interval thus obtained has size $\widetilde{\alpha} / 2$ for some permissible $c$ while a two-sided test has at most size $\widetilde{\alpha}$.  
 
 \subsection{Implementation of the feasible Q-test}
 \label{implementation}
@@ -152,22 +150,23 @@ The feasible Q-test, generalized to less restrictive assumptions, is implemented
 where $\mathscr{F}_{t}=\left\{w_{s} | s \leq t\right\}$ denotes the filtration generated by $w_{t}=\left(u_{t}, e_{t}\right)^{\prime}$.
 Its fourth moments are assumed to be finite and the unconditional variance is fixed, i.e.,
 \begin{equation}
-\begin{array}{l}{\mathrm{E}\left[w_{t} w_{t}^{\prime}\right]=\Sigma} \\ {\sup _{t} \mathrm{E}\left[u_{t}^{4}\right]<\infty, \sup _{t} \mathrm{E}\left[t_{t}^{4}\right]<\infty, \text { and } \mathrm{E}\left[x_{0}^{2}\right]<\infty}\end{array}
+\label{eqn:covarst}
+\begin{array}{l}{\mathrm{E}\left[w_{t} w_{t}^{\prime}\right]=\Sigma} \\ {\sup _{t} \mathrm{E}\left[u_{t}^{4}\right]<\infty, \sup _{t} \mathrm{E}\left[t_{t}^{4}\right]<\infty, \text { and } \mathrm{E}\left[x_{0}^{2}\right]<\infty.}\end{array}
 \end{equation}
 The dynamics of $x_{t}$ are written as
 \begin{equation}
 \label{eqn:22}
-x_{t}=\gamma+\rho x_{t-1}+v_{t}
+x_{t}=\gamma+\rho x_{t-1}+v_{t},
 \end{equation}
 where $\rho$ is the largest autoregressive root and $b(L) v_{t}=e_{t}$ with $b(L)=\sum_{i=0}^{p-1} b_{i} L^{i}$, $b_{0}=1$, and $b(1) \neq 0$. In this generalized case, the Q-statistic is not asymptotically standard normal distributed under the null. This is corrected by modifying it to
 \begin{equation}
-Q\left(\beta_{0}, \rho\right)=\frac{\sum_{t=1}^{T} x_{t-1}^{\mu}\left[r_{t}-\beta_{0} x_{t-1}-\sigma_{u e} /\left(\sigma_{e} \omega\right)\left(x_{t}-\rho x_{t-1}\right)\right]+\frac{T}{2} \sigma_{u e} /\left(\sigma_{e} \omega\right)\left(\omega^{2}-\sigma_{v}^{2}\right)}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}\left(\sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{1 / 2}}
+Q\left(\beta_{0}, \rho\right)=\frac{\sum_{t=1}^{T} x_{t-1}^{\mu}\left[r_{t}-\beta_{0} x_{t-1}-\sigma_{u e} /\left(\sigma_{e} \omega\right)\left(x_{t}-\rho x_{t-1}\right)\right]+\frac{T}{2} \sigma_{u e} /\left(\sigma_{e} \omega\right)\left(\omega^{2}-\sigma_{v}^{2}\right)}{\sigma_{u}\left(1-\delta^{2}\right)^{1 / 2}\left(\sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{1 / 2}},
 \end{equation}
 where $\omega=\sigma_{e} / b(1)$.
 
-First $\hat{\beta}$ and its standard error $\operatorname{SE}(\widehat{\beta})$ are obtained by OLS estimation of equation (1). $x_{t}$ is written in its augmented Dickey-Fuller form
+Implementing it, first $\hat{\beta}$ and its standard error $\operatorname{SE}(\widehat{\beta})$ are obtained by OLS estimation of equation ($\ref{eqn:1}$). $x_{t}$ is written in its augmented Dickey-Fuller form
 \begin{equation}
-\Delta x_{t}=\tau+\theta x_{t-1}+\sum_{i=1}^{p-1} \psi_{i} \Delta x_{t-i}+e_{t}
+\Delta x_{t}=\tau+\theta x_{t-1}+\sum_{i=1}^{p-1} \psi_{i} \Delta x_{t-i}+e_{t},
 \end{equation}
 where $\psi_{i}=-\sum_{j=i}^{p-1} a_{j}$, $a(L)=L^{-1}[1-(1-\rho L) b(L)]$, and $\theta=(\rho-1) b(1)$. Estimation of $\widehat{\psi}_{i}(i=1, \ldots, p-1)$ is done via OLS where $p$ is either explicitly specified or estimated via the Bayesian information criterion [BIC].
 With $\widehat{u}_{t}$ and $\widehat{e}_{t}$ being the residuals of regression (1) and (2), respectively,
@@ -175,13 +174,13 @@ With $\widehat{u}_{t}$ and $\widehat{e}_{t}$ being the residuals of regression (
 \end{align}
 are then computed. OLS estimation of equation ($\ref{eqn:22}$) yields $\widehat{\rho}$ and its standard error $\mathrm{SE}(\widehat{\rho})$. The residual $\widehat{v}_{t}$ is used to compute 
 \begin{equation}
-\widehat{\sigma}_{v}^{2}=(T-2)^{-1} \sum_{t=1}^{T} \widehat{v}_{t}^{2}
+\widehat{\sigma}_{v}^{2}=(T-2)^{-1} \sum_{t=1}^{T} \widehat{v}_{t}^{2}.
 \end{equation} 
 Now, to compute the DF-GLS statistic, $\left(x_{0}, x_{1}-\rho_{G L S} x_{0}, \ldots, x_{T}-\rho_{G L S} x_{T-1}\right)^{\prime}$ is regressed onto 
 $\left(1,1-\rho_{G L S}, \ldots, 1-\rho_{G L S}\right)^{\prime}$ with $\rho_{G L S}=1-7 / T$. The coefficient $\mu_{G L S}$ is used to compute $\overline{x}_{t}=x_{t}-\mu_{G L S}$ which, in turn, is needed for the regression 
 \begin{equation}
-\Delta \overline{x}_{t}=\theta \overline{x}_{t-1}+\sum_{i=1}^{p-1} \psi_{i} \Delta \overline{x}_{t-i}+e_{t}
-\end{equation} which is estimated with no intercept. Finally, the t-statistic for $\theta$ is computed which is the DF-GLS statistic. To confirm that no error is conducted in this estimation procedure, the DF-GLS statistic thus obtained is compared to the implementation in the urca package. 
+\Delta \overline{x}_{t}=\theta \overline{x}_{t-1}+\sum_{i=1}^{p-1} \psi_{i} \Delta \overline{x}_{t-i}+e_{t},
+\end{equation} which is estimated with no intercept. Finally, the t-statistic for $\theta$ is computed. This is the DF-GLS statistic. To confirm that no error is conducted in this estimation procedure, the DF-GLS statistic thus obtained is compared to the implementation in the urca$\footnote{}$ package. 
 
 $[\underline{\rho}, \overline{\rho}]=[1+\underline{c} / T, 1+\overline{c} / T]$ is obtained by first finding $[\underline{c}, \overline{c}]$ via tables 2–11 of Campbell and Yogo (2005) where the closest values to the estimated DF-GLS statistic and $\hat{\delta}$ are used. Let a temporary variable $r^{\star}$ be defined by
 \begin{equation}
@@ -204,7 +203,7 @@ A 5\% one-sided or 10\% two-sided test of $H_0: \beta = 0$ is based on the 90\% 
 $$[\underline{\beta}(\overline{\rho}), \overline{\beta}(\underline{\rho})]$$
 \subsection{Power comparison}
 \label{power}
-Campbell and Yogo (2006) evaluate the power of the feasible Q-test under local-to-unity asymptotics. In this framework the OLS estimators $\hat{\beta}$ and $\hat{\rho}$ are consistent at rate $T$. Thus, to have a meaningful comparison, local alternatives of the form $\beta = \beta_0 + b/T$ are considered where $b$ is a constant. The feasible Q-test is found to dominate the feasible t-test in all cases considered with increasing relative power gain in increasing $|\delta|$ and decreasing $|c|$. Their analysis shows that in the case of a highly persistent regressor, using the Q-test over the t-test provides a comparatively important gain in power. Their numerical refinement of the Bonferroni method provides a substantial further gain in power for the Q-test since this test exploits information about $\rho$. This makes its confidence interval for $\beta$ given $\rho$ more sensitive to $\rho$. Hence, without the refinement the Bonferroni Q-test is too conservative.
+Campbell and Yogo (2006) evaluate the power of the feasible Q-test under local-to-unity asymptotics. In this framework, the OLS estimators $\hat{\beta}$ and $\hat{\rho}$ are consistent at rate $T$. Thus, to have a meaningful comparison, local alternatives of the form $\beta = \beta_0 + b/T$ are considered where $b$ is a constant. The feasible Q-test is found to dominate the feasible t-test in all cases considered with increasing relative power gain in increasing $|\delta|$ and decreasing $|c|$. Their analysis shows that in the case of a highly persistent regressor, using the Q-test over the t-test provides a comparatively important gain in power. Their numerical refinement of the Bonferroni method provides a substantial further gain in power for the Q-test since this test exploits information about $\rho$. This makes its confidence interval for $\beta$ given $\rho$ more sensitive to $\rho$. Hence, without the refinement the Bonferroni Q-test is too conservative.
 
 \section{Monte Carlo simulation}
 \label{Monte Carlo simulation}
@@ -248,7 +247,7 @@ To confirm the correct implementation of the procedure, Table~\vref{tab:cy} repl
 \end{threeparttable}
 \end{table}
 
-Next, slightly different input parameters are chosen. If the results differ qualitatively, the previous findings might be the result of selection bias. As demonstrated by Table~\vref{tab:cy_changed}, no such suspicion is warranted. As long as the sample size is at least 100 and $\rho$ is local to unity, the Bonferroni Q-test has acceptable finite sample rejection rates. The infeasible Q-test, unsurprisingly, always has rejection rates close to $\alpha$. The t-test, on the other hand, significantly over-rejects when the innovations are highly correlated and $\rho$ is local to unity. It should be noted, however, that the two-sided Bonferroni Q-test tends to under-reject for the chosen parameters. 
+Next, slightly different input parameters are chosen. If the results differ qualitatively, the previous findings might be the result of selection bias. As demonstrated by Table~\vref{tab:cy_changed}, no such suspicion is warranted. As long as the sample size is at least 100 and $\rho$ is local-to-unity, the Bonferroni Q-test has acceptable finite sample rejection rates. The infeasible Q-test, unsurprisingly, always has rejection rates close to $\alpha$. The t-test, on the other hand, significantly over-rejects when the innovations are highly correlated and $\rho$ is local-to-unity. It should be noted, however, that the two-sided Bonferroni Q-test tends to under-reject for the chosen parameters. 
 \begin{table}[h!]
 \caption{Finite-sample rejection rates}
 \centering
@@ -292,7 +291,7 @@ Next, slightly different input parameters are chosen. If the results differ qual
 \end{table}
 \subsection{Simulation with weakly persistent regressors and Gaussian innovations}
 \label{Simulation with weakly persistent regressors and Gaussian innovations}
-As argued by Phillips (2014), the Q-test as derived in section (3) is asymptotically invalid when the largest autoregressive root of the regressor is not local to unity. In the following I will demonstrate the finite sample behavior as $\rho$ diverges from unity. Again 10,000 Monte Carlo simulations are run with Gaussian innovations. A relatively small sample size is chosen to keep the DF-GLS statistic small in absolute value and thus stay in the vicinity of the implementation of Campbell and Yogo (2005). Table~\vref{tab:non-local} shows that as $\rho$ distances itself from the unity neighborhood the Bonferroni Q-test significantly over-rejects the true null of no predictability. 
+As argued by Phillips (2014), the Q-test as derived in section $\ref{Derivation of the tests}$ is asymptotically invalid when the largest autoregressive root of the regressor is not local-to-unity. In the following, finite-sample behavior is demonstrate as $\rho$ diverges from unity. Again 10,000 Monte Carlo simulations are run with Gaussian innovations. A relatively small sample size is chosen to keep the DF-GLS statistic small in absolute value and thus stay in the vicinity of the implementation of Campbell and Yogo (2005). Table~\vref{tab:non-local} shows that as $\rho$ distances itself from the unity neighborhood the Bonferroni Q-test significantly over-rejects the true null of no predictability. 
 \begin{table}[h!]
 \caption{Finite-sample rejection rates (non local to unity autoregressive root) }
 \label{tab:non-local}
@@ -327,31 +326,31 @@ As argued by Phillips (2014), the Q-test as derived in section (3) is asymptotic
 \end{table}
 \subsection{Simulation with CCC-GARCH innovations}
 \label{Simulation with CCC-GARCH innovations}
-Campbell and Yogo (2006) evaluate the robustness of the Q-test under a fat-tailed distribution. In particular, they find finite sample rejection probabilities to be unchanged from the Gaussian case when the innovations follow a Student t-distribution with five degrees of freedom. As shown by Cavaliere (2004) unit root tests may be invalid under conditional heteroskedasticity. Assumptions ... imply validity of the Q-test under conditional heteroskedasticity only if the variance is covariance stationary. 
+Campbell and Yogo (2006) evaluate the robustness of the Q-test under a fat-tailed distribution. In particular, they find finite-sample rejection probabilities to be unchanged from the Gaussian case when the innovations follow a Student t-distribution with five degrees of freedom. As shown by Cavaliere (2004), unit root tests may be invalid under conditional heteroskedasticity. Assumptions in form of equation ($\ref{eqn:covarst}$) imply validity of the Q-test under conditionally heteroskedastic innovations only if they are covariance stationary. 
 %Jacquier et al. (2004), however, show that this assumption might be too restrictive to adequately model the dynamics in reality. In the following I will show finite sample rejection rates when the ... modeled as a BEKK GARCH(1,1) process approaches nonstationarity.
-It is therefore interesting to observe the behavior of the Bonferroni Q-test if innovations are modeled by a generalized autoregressive conditional heteroskedasticity [GARCH] process that approaches non-stationarity. If the regressor is a valuation ratio, it seems sensible that there is a more or less stable correlation between the regressor and stock returns. A multivariate GARCH model that allows such a restriction is the Constant Conditional Correlations GARCH  [CCC-GARCH] model of Bollerslev (1990). Let $ \boldsymbol{z_{t}}$ be a bivariate standard normal random variable, i.e., $ \boldsymbol{z}_{t} \stackrel{i i d}{\sim} \mathrm{N}\left(\mathbf{0}, \boldsymbol{I}_{2}\right)$. Then the innovations are modeled as 
+It is therefore interesting to observe the behavior of the Bonferroni Q-test if innovations are modeled by a generalized autoregressive conditional heteroskedasticity [GARCH] process that approaches covariance non-stationarity. If the regressor is a valuation ratio, it seems sensible that there is a more or less stable correlation between the regressor and stock returns. A multivariate GARCH model that allows such a restriction is the Constant Conditional Correlations GARCH  [CCC-GARCH] model of Bollerslev (1990). Let $ \boldsymbol{z_{t}}$ be a bivariate standard normal random variable, i.e., $ \boldsymbol{z}_{t} \stackrel{i i d}{\sim} \mathrm{N}\left(\mathbf{0}, \boldsymbol{I}_{2}\right)$. Then the innovations are modeled as 
 \begin{equation}
- \boldsymbol{w}_{t}=\boldsymbol{H}_{t}^{1 / 2} \boldsymbol{z}_{t}
+ \boldsymbol{w}_{t}=\boldsymbol{H}_{t}^{1 / 2} \boldsymbol{z}_{t},
 \end{equation}
 where $ \boldsymbol{H_t}$ denotes the covariance matrix at time $t$. $\boldsymbol{H}_{t}$ is a positive definite matrix whose Cholesky decomposition factors into 
 \begin{equation}
-\boldsymbol{H}_{t}^{1/2} = \boldsymbol{D}_{t} \boldsymbol{R}_{t}^{1 / 2}
+\boldsymbol{H}_{t}^{1/2} = \boldsymbol{D}_{t} \boldsymbol{R}_{t}^{1 / 2},
 \end{equation}
 with $\boldsymbol{D}_{t}$ being a diagonal matrix with the conditional standard deviations 
 \begin{equation}
 \label{eqn:40}
-\boldsymbol{D}_{t}=\left[\begin{array}{cc}{\sqrt{h_{1 t}^{2}}} & {0} \\ {0} & {\sqrt{h_{2 t}^{2}}}\end{array}\right].
+\boldsymbol{D}_{t}=\left[\begin{array}{cc}{\sqrt{h_{1 t}^{2}}} & {0} \\ {0} & {\sqrt{h_{2 t}^{2}}}\end{array}\right]
 \end{equation}
 and $\boldsymbol{R}_{t}$ being the positive definite conditional correlation matrix 
 \begin{equation}
-\boldsymbol{R}_{t}=\left[\begin{array}{cc}{1} & {\delta_{ t}} \\ {\delta_{ t}} & {1}\end{array}\right]
+\boldsymbol{R}_{t}=\left[\begin{array}{cc}{1} & {\delta_{ t}} \\ {\delta_{ t}} & {1}\end{array}\right].
 \end{equation}
 Since correlations are assumed to be constant through time, $\boldsymbol{R}_{t}=\boldsymbol{R}$. The conditional variances 
 $${h}_{i t}^{2}, \quad t=1, \ldots, T, \quad i=1, 2$$
 in $\boldsymbol{D}_{t}$ are modeled by independent univariate GARCH processes, i.e.,
 \begin{equation}
 \label{eqn:garch}
-\begin{aligned} \epsilon_{t} &=h_{t} \eta_{t}, \quad \eta_{t} \stackrel{i i d}{\sim}N(0,1) \\ h_{t}^{2} &=\omega+\sum_{i=1}^{q} \alpha_{i} \epsilon_{t-i}^{2}+\sum_{i=1}^{p} \beta_{i} h_{t-i}^{2} \\ \omega &>0, \quad \alpha_{i} \geq 0, \quad i=1, \ldots, q, \quad \beta_{i} \geq 0, \quad i=1, \ldots, p \end{aligned}
+\begin{aligned} \epsilon_{t} &=h_{t} \eta_{t}, \quad \eta_{t} \stackrel{i i d}{\sim}N(0,1) \\ h_{t}^{2} &=\omega+\sum_{i=1}^{q} \alpha_{i} \epsilon_{t-i}^{2}+\sum_{i=1}^{p} \beta_{i} h_{t-i}^{2} \\ \omega &>0, \quad \alpha_{i} \geq 0, \quad i=1, \ldots, q, \quad \beta_{i} \geq 0, \quad i=1, \ldots, p. \end{aligned}
 \end{equation}
 Simulation results are shown in Table~\vref{tab:ccc-garch}.
 \begin{table}[ht]
@@ -439,9 +438,9 @@ Simulation is performed similar as in the CCC-GARCH model but now $h_{1, t} =h_{
 \label{Simulation with common GJR-GARCH innovations}
 Glosten, Jagannathan and Runkle (1993) [GJR] observe that in financial markets negative shocks contribute disproportionately more to future return volatility than positive shocks. To model the dynamics of real markets more adequately, innovation variances are modeled by a common univariate GJR-GARCH process. This process models conditional variance as
 \begin{equation}
-h_{t}^{2}=\omega+\left(\alpha+\gamma S_{t-1}\right) \epsilon_{t-1}^{2}+\beta h_{t-1}^{2}
+h_{t}^{2}=\omega+\left(\alpha+\gamma S_{t-1}\right) \epsilon_{t-1}^{2}+\beta h_{t-1}^{2},
 \end{equation}
-where $$S_{t-1}=\left\{\begin{array}{ll}{1} & {\text { if } \epsilon_{t-1}<0} \\ {0} & {\text { if } \epsilon_{t-1} \geq 0}\end{array}\right..$$
+where $$S_{t-1}=\left\{\begin{array}{ll}{1} & {\text { if } \epsilon_{t-1}<0} \\ {0} & {\text { if } \epsilon_{t-1} \geq 0.}\end{array}\right.$$
 When $\gamma>0$ negative shocks increase volatility more than positive shocks. The GJR-GARCH process is covariance stationary if $\alpha+\gamma / 2+\beta<1$. Further, to allow for conditional leptokurtosis $\eta_{t}$ in equation ($\ref{eqn:garch}$) now follows a generalized error distribution with parameter $\theta$, i.e., $$\eta_{t} \stackrel{i i d}{\sim}GED(\theta).$$ Parameter estimates for monthly returns of the CRSP value weighted index from 1926 to 2003 are displayed in Table~\vref{tab:gjr-garch}. Since $\hat{\alpha}+\hat{\gamma} / 2+\hat{\beta}=0.958$ real return volatilities are close to nonstationary.
 \begin{table}[!htbp] \centering 
   \caption{Parameter Estimates of the GJR-GARCH(1, 1)} 
@@ -465,7 +464,7 @@ $\theta$ & $1.515$ & $0.089$ & $17.058$ & $0.000$ \\
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
-Monte Carlo paths are simulated with $\omega = 0.000118$, $\gamma=0.0999$, $\theta=1.5$, $\alpha=0$ and letting $\beta$ increase to 0.95 such that the process approaches nonstationarity. The simulation outcome is displayed in Table~\vref{tab:mc_grj-garch}. It is observed that under realistic volatility modeling, the right-tailed Bonferroni Q-test tends to over-reject the true null.
+Monte Carlo paths are simulated with $\omega = 0.000118$, $\gamma=0.0999$, $\theta=1.5$, $\alpha=0$ and letting $\beta$ increase to 0.95 such that the process approaches nonstationarity. The simulation outcome is displayed in Table~\vref{tab:mc_grj-garch}. It is observed that under realistic volatility modeling, the right-tailed Bonferroni Q-test tends to over-reject the true null of no predictability.
 
 \begin{table}[hbt]
 \centering
@@ -496,6 +495,8 @@ Monte Carlo paths are simulated with $\omega = 0.000118$, $\gamma=0.0999$, $\the
 \label{Empirical Results}
 Table~\vref{tab:cy_sp} replicates the key results of Tables 4 and 5 of Campbell and Yogo (2006). The Bonferroni Q-test is implemented as described in section $\ref{implementation}$. Apart from rounding errors, the results are nearly the same except for the following discrepancies. First, the DF-GLS statistic for $p>1$ is higher than reported by Campbell and Yogo (2006).  As previously mentioned, the DF-GLS implementation of section $\ref{implementation}$ was verified with a different open-source implementation. Second, based on the BIC, a lower $p$ of 1 was selected for monthly ldp. Investigations showed that the difference in BIC when $p=1$ compared with $p=2$ is very small. 
 \begin{table}[ht]
+\small
+\setlength\tabcolsep{5pt}
 \centering
 \caption{Replicated estimates of model parameters from Campbell and Yogo (2006)}
 \label{tab:cy_sp}
@@ -505,13 +506,13 @@ Table~\vref{tab:cy_sp} replicates the key results of Tables 4 and 5 of Campbell 
 dataset & $x$ & obs & $\hat{\delta}$ & $CI_{\rho}$ & DF-GLS & $p$ &t-stat & pt & $\hat{\beta}$ & $CI_{\beta}$ \\ 
   \hline
   SP\_A & lep & 123 & -0.96 & [0.786,0.931] & -2.888 & 1 & 2.76 & 0 & 0.127 & [0.043,0.225] \\ 
-  SP\_A & ldp & 123 & -0.85 & [0.94,1.006] & -1.247 & 3 & 1.95 & 0 & 0.083 & [-0.024,0.136] \\ 
-  CRSP\_A & lep & 77 & -0.96 & [0.778,0.96] & -2.229 & 1 & 2.77 & 0 & 0.162 & [0.04,0.273] \\ 
-  CRSP\_A & ldp & 77 & -0.72 & [0.926,1.01] & -1.033 & 1 & 2.53 & 0 & 0.158 & [0.013,0.186] \\ 
+  SP\_A & ldp & 123 & -0.85 & [0.940,1.006] & -1.247 & 3 & 1.95 & 0 & 0.083 & [-0.024,0.136] \\ 
+  CRSP\_A & lep & 77 & -0.96 & [0.778,0.960] & -2.229 & 1 & 2.77 & 0 & 0.162 & [0.040,0.273] \\ 
+  CRSP\_A & ldp & 77 & -0.72 & [0.926,1.010] & -1.033 & 1 & 2.53 & 0 & 0.158 & [0.013,0.186] \\ 
   CRSP\_Q & lep & 305 & -0.99 & [0.944,0.992] & -2.191 & 1 & 2.91 & 0 & 0.047 & [0.011,0.066] \\ 
   CRSP\_Q & ldp & 305 & -0.94 & [0.962,0.999] & -1.696 & 1 & 2.06 & 0 & 0.034 & [-0.009,0.044] \\ 
-  CRSP\_M & lep & 913 & -0.99 & [0.985,1] & -1.859 & 1 & 2.66 & 0 & 0.013 & [0.001,0.018] \\ 
-  CRSP\_M & ldp & 913 & -0.95 & [0.99,1.001] & -1.433 & 1 & 1.70 & 0 & 0.008 & [-0.005,0.01] \\ 
+  CRSP\_M & lep & 913 & -0.99 & [0.985,1.000] & -1.859 & 1 & 2.66 & 0 & 0.013 & [0.001,0.018] \\ 
+  CRSP\_M & ldp & 913 & -0.95 & [0.990,1.001] & -1.433 & 1 & 1.70 & 0 & 0.008 & [-0.005,0.010] \\ 
 \hline
 \end{tabular}
  \begin{tablenotes}
@@ -521,17 +522,20 @@ dataset & $x$ & obs & $\hat{\delta}$ & $CI_{\rho}$ & DF-GLS & $p$ &t-stat & pt &
 \end{threeparttable}
 \end{table}
 
-The null hypothesis of no predictability can be rejected for ldp and lep at the annual sampling frequency and for all datasets, respectively, using data from Campbell and Yogo (2006). Based on the extended dataset from Amid Goyal, only lep on a quarterly frequency can be inferred to be predictive of excess log-returns. This discrepancy may arise from two causes. First due to the lack of availability of the 1-month T-bill rate, all risk free-rate computations are based on the 3-month T-bill in the extended dataset. This introduces minor differences in datasets since Campbell and Yogo (2006) use the 1-month T-bill as a risk-free proxy for their monthly regressions. Second, as will be seen in Table~\vref{tab:oos} predictability seems to have been weakening in recent years. Hence, a time-extended sample will show less evidence of it.  
+The null hypothesis of no predictability can be rejected at the 10\% significance level for ldp and lep at the annual sampling frequency and for all datasets, respectively, using data from Campbell and Yogo (2006). Based on the extended dataset from Amid Goyal, only lep on a quarterly frequency can be inferred to be predictive of excess log-returns. This discrepancy may arise from two causes. First due to the lack of availability of the 1-month T-bill rate, all risk free-rate computations are based on the 3-month T-bill in the extended dataset. This introduces minor differences in datasets since Campbell and Yogo (2006) use the 1-month T-bill as a risk-free proxy for their monthly regressions. Second, as will be seen in Table~\vref{tab:oos} predictability seems to have been weakening in recent years. Hence, a time-extended sample will show less evidence of it.  
 \begin{table}[ht]
+\small
+\setlength\tabcolsep{5pt}
 \centering
 \caption{Replicated estimates of model parameters from Campbell and Yogo (2006) with an extended dataset}
 \label{tab:extended}
 \begin{threeparttable}
 \begin{tabular}{llrrlrrrrrl}
+%\begin{tabular}{ccccccccccc}
   \hline
 dataset & $x$ & obs & $\hat{\delta}$ & $CI_{\rho}$ & DF-GLS & $p$ &t-stat & pt & $\hat{\beta}$ & $CI_{\beta}$ \\ 
   \hline
-    CRSP\_A  & lep & 92 & -0.97 & [0.827,0.979] & -2.092 & 1 & 2.12 & 0 & 0.114 & [-0.01,0.18] \\ 
+    CRSP\_A  & lep & 92 & -0.97 & [0.827,0.979] & -2.092 & 1 & 2.12 & 0 & 0.114 & [-0.01,0.180] \\ 
     CRSP\_A  & ldp & 92 & -0.86 & [0.875,0.986] & -1.731 & 1 & 0.97 & 0 & 0.042 & [-0.069,0.107] \\ 
     %CRSP\_A  & tbl & 66 & 0.08 & [0.853,0.908] & -1.899 & 1 & -0.41 & 1 & -0.279 & [-0.125,0.075] \\ 
     %CRSP\_A  & tms & 66 & -0.06 & [0.454,0.575] & -3.942 & 1 & 0.96 & 1 & 1.297 & [-0.071,0.275] \\ 
@@ -554,8 +558,10 @@ $p$ denotes the optimal number of lags selected by BIC. pt is a boolean denoting
 \end{threeparttable}
 \end{table}
 
-Since the original publication of Campbell and Yogo (2006) a sufficiently large amount of data has been generated at the quarterly and monthly sampling frequencies that merits a standalone out-of-sample analysis. Table~\vref{tab:oos} displays model parameter estimates since 2004 until the last available data point in 2017. This relatively small dataset allows no rejection of the null hypothesis for any of the regressors and sampling frequencies considered, however. 
+Since the original publication of Campbell and Yogo (2006) a sufficiently large amount of data has been generated at the quarterly and monthly sampling frequencies that merits a standalone out-of-sample analysis. Table~\vref{tab:oos} displays model parameter estimates since 2004 until the last available data point in 2017. This relatively small dataset allows no rejection of the null hypothesis at the 10\% significance level for any of the regressors and sampling frequencies considered, however. 
 \begin{table}[ht]
+\small
+\setlength\tabcolsep{5pt}
 \centering
 \caption{Out-of-sample estimates of model parameters}
 \label{tab:oos}
@@ -590,21 +596,20 @@ $p$ denotes the optimal number of lags selected by BIC. pt is a boolean denoting
 \section{Conclusion}
 \label{conclusion}
 
-The Bonferroni Q-test is a valid test of predictability if the regressor's largest autoregressive root is local-to-unity and the innovations of regressor and regressand are highly correlated. It has been shown that the Bonferroni Q-test has important power advantages over the Bonferroni t-test. This study confirms acceptable finite-sample rejection rates when the assumptions of the generalized Bonferroni Q-test are fulfilled. When the regressor is nonlocal-to-unity, however, the Q-test can over-reject the null in finite samples. Further, if innovations are modeled by a non-covariance-stationarity approaching GARCH process, the right-tailed test again tends to over-reject the null of no predictability. Previous evidence of predictability of the earnings-to-price ratio and dividend-to-price ratio could be replicated. Out-of-sample evidence, based on data emerged since the first publication of the method, is however eroding. In particular, both regressors are not found statistically significant at the 5\% confidence level at the monthly as well as the quarterly sampling frequency.
+The Bonferroni Q-test is a valid test of predictability if the regressor's largest autoregressive root is local-to-unity and the innovations of regressor and regressand are highly correlated. It has been shown that the Bonferroni Q-test has important power advantages over the Bonferroni t-test. This study confirms acceptable finite-sample rejection rates when the assumptions of the generalized Bonferroni Q-test are fulfilled. When the regressor is nonlocal-to-unity, however, the Q-test can over-reject the null in finite samples. Further, if innovations are modeled by a non-covariance-stationarity approaching GARCH process, the right-tailed test again tends to over-reject the null of no predictability. Previous evidence of predictability of the earnings-to-price ratio and dividend-to-price ratio could be replicated. Out-of-sample evidence, based on data emerged since the first publication of the method, is however eroding. In particular, both regressors are not found statistically significant at the 10\% level at the monthly as well as the quarterly sampling frequency.
 
 \pagebreak
-
-
 \begin{thebibliography}{}
-
 \bibitem{} 
-{Campbell, J. Y., Yogo, M. }
-\textit{Efficient tests of stock return predictability.} Journal of Financial Economics 81, 27-60, 2006.
+Campbell, J.Y., Yogo, M., 2005. Implementing the econometric methods in ‘‘Efficient tests of stock return
+predictability’’. Unpublished working paper. University of Pennsylvania.
 \bibitem{} 
-{Elliott, G., Stock, J.H.} \textit{Inference in time series regression when the order of integration of a regressor is
-unknown.} Econometric Theory 10, 672–700,  1994.
+Campbell, J. Y., Yogo, M., 2006. Efficient tests of stock return predictability. Journal of Financial Economics 81, 27-60.
 \bibitem{} 
-Elliott, G., Rothenberg, T. J., \& Stock, J. H. (1996). Efficient Tests for an Autoregressive Unit Root. Econometrica, 64(4), 813–836.
+Elliott, G., Stock, J.H., 1994. Inference in time series regression when the order of integration of a regressor is
+unknown. Econometric Theory 10, 672–700.
+\bibitem{} 
+Elliott, G., Rothenberg, T. J., \& Stock, J. H., 1996. Efficient Tests for an Autoregressive Unit Root. Econometrica, 64(4), 813–836.
 \bibitem{} 
 Jacquier, E., Polson, N.G., Rossi, P.E., 2004. Bayesian analysis of stochastic volatility
 models with fat-tails and correlated errors. J. Econometrics 122, 185–212.
@@ -612,14 +617,19 @@ models with fat-tails and correlated errors. J. Econometrics 122, 185–212.
 Cavaliere, G., 2004. Unit root tests under time-varying variances. Econometric Rev.
 23, 259–292.
 \bibitem{} 
-Phillips, P. C. B., 2014, On confdence Intervals for autoregressive roots and predictive regression. Econometrica, 82(3), 1177-1195.
+Phillips, P. C. B., 1987. Towards a unified asymptotic theory for autoregression. Biometrika 74, 535–547.
 \bibitem{} 
-Bollerslev (1990): Modelling the coherence in short–run nominal exchange rates: a multivariate generalized ARCH model, Review of Economics and Statistics, 73, 498–505.
+Phillips, P. C. B., 2014. On confdence Intervals for autoregressive roots and predictive regression. Econometrica, 82(3), 1177-1195.
 \bibitem{} 
-Engle and Kroner (1995). Multivariate Simultaneous Generalized ARCH, Econometric Theory, 11, 122–150.
+Bollerslev ,1990. Modelling the coherence in short–run nominal exchange rates: a multivariate generalized ARCH model, Review of Economics and Statistics, 73, 498–505.
 \bibitem{} 
-Glosten, L. R., R. Jagannathan, and D. E. Runkle (1993). On the relation between the expected value and the volatility of the nominal excess return on stocks. The Journal of Finance 48, 1779-1801.
+Engle and Kroner ,1995. Multivariate Simultaneous Generalized ARCH, Econometric Theory, 11, 122–150.
+\bibitem{} 
+Glosten, L. R., R. Jagannathan, and D. E. Runkle, 1993. On the relation between the expected value and the volatility of the nominal excess return on stocks. The Journal of Finance 48, 1779-1801.
+\bibitem{} 
+Stock, J.H., 1991. Confidence intervals for the largest autoregressive root in US macroeconomic time series.
+Journal of Monetary Economics 28, 435–459.
+
+
 \end{thebibliography}
-
-
 \end{document}
