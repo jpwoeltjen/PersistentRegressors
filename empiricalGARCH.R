@@ -18,11 +18,11 @@ stargazer::stargazer(fit@fit$matcoef,
   gsub("Std. Error", "Rob. Std. Error", .) %>%
   gsub("t value", "Rob. t value", .) %>%
   # gsub("mu", "$\\\\mu$", .) %>%
-  gsub("alpha1", "$\\\\hat{\alpha}$", .) %>%
-  gsub("omega", "$\\\\\hat{omega}$", .) %>%
-  gsub("beta1", "$\\\\\hat{beta}$", .) %>%
-  gsub("gamma1", "$\\\\\hat{gamma}$", .) %>%
-  gsub("shape", "$\\\\\hat{theta}$", .)  %>%
+  gsub("alpha1", "$\\\\alpha$", .) %>%
+  gsub("omega", "$\\\\omega$", .) %>%
+  gsub("beta1", "$\\\\beta$", .) %>%
+  gsub("gamma1", "$\\\\gamma$", .) %>%
+  gsub("shape", "$\\\\theta$", .)  %>%
   writeLines("results/GARCH_output.tex")
 
 # GJR gaussian
@@ -35,11 +35,11 @@ stargazer::stargazer(fit@fit$matcoef,
   gsub("Std. Error", "Rob. Std. Error", .) %>%
   gsub("t value", "Rob. t value", .) %>%
   # gsub("mu", "$\\\\mu$", .) %>%
-  gsub("alpha1", "$\\\\hat{\alpha}$", .) %>%
-  gsub("omega", "$\\\\\hat{omega}$", .) %>%
-  gsub("beta1", "$\\\\\hat{beta}$", .) %>%
-  gsub("gamma1", "$\\\\\hat{gamma}$", .) %>%
-  gsub("shape", "$\\\\\hat{theta}$", .)  %>%
+  gsub("alpha1", "$\\\\alpha$", .) %>%
+  gsub("omega", "$\\\\omega$", .) %>%
+  gsub("beta1", "$\\\\beta$", .) %>%
+  gsub("gamma1", "$\\\\gamma$", .) %>%
+  gsub("shape", "$\\\\theta$", .)  %>%
   writeLines("results/GJR-GARCH_norm_output.tex")
 
 # GJR ged
@@ -52,7 +52,7 @@ stargazer::stargazer(fit@fit$matcoef,
                      title = "Parameter Estimates of the GJR-GARCH(1, 1)") %>%
   gsub("Std. Error", "Rob. Std. Error", .) %>%
   gsub("t value", "Rob. t value", .) %>%
-  gsub("mu", "$\\\\mu$", .) %>%
+  # gsub("mu", "$\\\\mu$", .) %>%
   gsub("alpha1", "$\\\\alpha$", .) %>%
   gsub("omega", "$\\\\omega$", .) %>%
   gsub("beta1", "$\\\\beta$", .) %>%
