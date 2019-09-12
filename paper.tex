@@ -4,9 +4,9 @@
 \usepackage{mathrsfs}  
 \usepackage{float}
 \usepackage{varioref}
-\usepackage[margin=1.2in]{geometry}
+\usepackage[margin=1.45in]{geometry}
 \usepackage[flushleft]{threeparttable}
-\title{Predictive Regressions with Persistent Regressors}
+\title{Predictive Regressions with Persistent Regressors:\\ Monte Carlo evidence for the Bonferroni Q-test}
 \author{Jan Philipp Wöltjen  \\
 	Seminar in Statistics CAU Kiel  \\
 	}
@@ -48,7 +48,7 @@ In developing their test, Campbell and Yogo (2006) start by considering the t-st
 \begin{equation}
 t\left(\beta_{0}\right)=\frac{\widehat{\beta}-\beta_{0}}{\sigma_{u}\left(\sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{-1 / 2}},
 \end{equation}
-where $x_{t-1}^{\mu}=x_{t-1}-T^{-1} \sum_{t=1}^{T} x_{t-1}$ denotes the de-meaned regressor and $\widehat{\beta}$ is the OLS estimate of $\beta$. They argue that this test ignores information contained in the system ($\ref{eqn:1}$, $\ref{eqn:2}$) and can thus not be optimal. To see this, consider the joint log likelihood function of the system ($\ref{eqn:1}$, $\ref{eqn:2}$)
+where $x_{t-1}^{\mu}=x_{t-1}-T^{-1} \sum_{t=1}^{T} x_{t-1}$ denotes the demeaned regressor and $\widehat{\beta}$ is the OLS estimate of $\beta$. They argue that this test ignores information contained in the system ($\ref{eqn:1}$, $\ref{eqn:2}$) and can thus not be optimal. To see this, consider the joint log likelihood function of the system ($\ref{eqn:1}$, $\ref{eqn:2}$)
 \begin{equation}
 \begin{aligned} L(\beta, \rho, \alpha, \gamma)=&-\frac{1}{1-\delta^{2}} \sum_{t=1}^{T}\left[\frac{\left(r_{t}-\alpha-\beta x_{t-1}\right)^{2}}{\sigma_{u}^{2}}-2 \delta \frac{\left(r_{t}-\alpha-\beta x_{t-1}\right)\left(x_{t}-\gamma-\rho x_{t-1}\right)}{\sigma_{u} \sigma_{e}}\right.\\ &\left.+\frac{\left(x_{t}-\gamma-\rho x_{t-1}\right)^{2}}{\sigma_{e}^{2}}\right] \end{aligned}
 \end{equation}
@@ -206,7 +206,7 @@ $$[\underline{\beta}(\overline{\rho}), \overline{\beta}(\underline{\rho})]$$
 Campbell and Yogo (2006) evaluate the power of the feasible Q-test under local-to-unity asymptotics. In this framework, the OLS estimators $\hat{\beta}$ and $\hat{\rho}$ are consistent at rate $T$. Thus, to have a meaningful comparison, local alternatives of the form $\beta = \beta_0 + b/T$ are considered where $b$ is a constant. The feasible Q-test is found to dominate the feasible t-test in all cases considered with increasing relative power gain in increasing $|\delta|$ and decreasing $|c|$. Their analysis shows that in the case of a highly persistent regressor, using the Q-test over the t-test provides a comparatively important gain in power. Their numerical refinement of the Bonferroni method provides a substantial further gain in power for the Q-test since this test exploits information about $\rho$. This makes its confidence interval for $\beta$ given $\rho$ more sensitive to $\rho$. Hence, without the refinement the Bonferroni Q-test is too conservative.
 
 \section{Monte Carlo simulation}
-This section accommodates, next to the out-of-sample results in section $\ref{Empirical Results}$, one of the main contributions of this study. First, Monte Carlo evidence of Campbell and Yogo (2006) is replicated providing reassurance that both parties implemented the method correctly. Next, the Bonferroni Q-test is tested by violating key assumptions about the regressor's persistence. Furthermore, innovations are modeled by increasingly realistic distributions, for which justification in form of real-world parameter estimates is given.
+This section, next to the out-of-sample results in section $\ref{Empirical Results}$, accommodates one of the main contributions of this study. First, Monte Carlo evidence of Campbell and Yogo (2006) is replicated providing reassurance that both parties implemented the method correctly. Next, the Bonferroni Q-test is tested by violating key assumptions about the regressor's persistence. Furthermore, innovations are modeled by increasingly realistic distributions, for which justification in the form of real-world parameter estimates is given.
 \label{Monte Carlo simulation}
 \subsection{Simulation with Gaussian innovations}
 \label{Simulation with Gaussian innovations}
@@ -292,7 +292,7 @@ Next, slightly different input parameters are chosen. If the results differ qual
 \end{table}
 \subsection{Simulation with weakly persistent regressors and Gaussian innovations}
 \label{Simulation with weakly persistent regressors and Gaussian innovations}
-As argued by Phillips (2014), the feasible Q-test as derived in section $\ref{Derivation of the tests}$ is asymptotically invalid when the largest autoregressive root of the regressor is not local-to-unity. In the following, finite-sample behavior is demonstrate as $\rho$ diverges from unity. Again, 10,000 Monte Carlo simulations are run with bivariate Gaussian innovations. A relatively small sample size is chosen to keep the DF-GLS statistic small in absolute value and thus stay in the vicinity of the implementation of Campbell and Yogo (2005). Table~\vref{tab:non-local} shows that as $\rho$ distances itself from the unity neighborhood the Bonferroni Q-test significantly over-rejects the true null of no predictability. Over-rejection is largest for highly correlated innovations and large $|c|$ where it surpasses 200\%.
+As argued by Phillips (2014), the feasible Q-test as derived in section $\ref{Derivation of the tests}$ is asymptotically invalid when the largest autoregressive root of the regressor is not local-to-unity. In the following, finite-sample behavior is demonstrated as $\rho$ diverges from unity. Again, 10,000 Monte Carlo simulations are run with bivariate Gaussian innovations. A relatively small sample size is chosen to keep the DF-GLS statistic small in absolute value and thus stay in the vicinity of the implementation of Campbell and Yogo (2005). Table~\vref{tab:non-local} shows that as $\rho$ distances itself from the unity neighborhood the Bonferroni Q-test significantly over-rejects the true null of no predictability. Over-rejection is largest for highly correlated innovations and large $|c|$ where it surpasses 200\%.
 \begin{table}[h!]
 \caption{Finite-sample rejection rates (non local to unity autoregressive root) }
 \label{tab:non-local}
@@ -327,7 +327,7 @@ As argued by Phillips (2014), the feasible Q-test as derived in section $\ref{De
 \end{table}
 \subsection{Simulation with CCC-GARCH innovations}
 \label{Simulation with CCC-GARCH innovations}
-Campbell and Yogo (2006) evaluate the robustness of the Q-test under a fat-tailed distribution. In particular, they find finite-sample rejection probabilities to be unchanged from the Gaussian case when the innovations follow a Student t-distribution with five degrees of freedom. As shown by Cavaliere (2004), unit root tests may be invalid under conditional heteroskedasticity. Assumptions in form of equation ($\ref{eqn:covarst}$) imply validity of the Q-test under conditionally heteroskedastic innovations only if they are covariance stationary. 
+Campbell and Yogo (2006) evaluate the robustness of the Q-test under a fat-tailed distribution. In particular, they find finite-sample rejection probabilities to be unchanged from the Gaussian case when the innovations follow a Student t-distribution with five degrees of freedom. As shown by Cavaliere (2004), unit root tests may be invalid under conditional heteroskedasticity. Assumptions in the form of equation ($\ref{eqn:covarst}$) imply validity of the Q-test under conditionally heteroskedastic innovations only if they are covariance stationary. 
 It is therefore interesting to observe the behavior of the Bonferroni Q-test if innovations are modeled by a generalized autoregressive conditional heteroskedasticity [GARCH] process that approaches covariance nonstationarity. If the regressor is a valuation ratio, it seems sensible that there is a more or less stable correlation between the regressor and stock returns. A multivariate GARCH model that allows such a restriction is the Constant Conditional Correlations GARCH  [CCC-GARCH] model of Bollerslev (1990). It is defined as follows. Let $ \boldsymbol{z_{t}}$ be a bivariate standard normal random variable, i.e., $ \boldsymbol{z}_{t} \stackrel{i i d}{\sim} \mathrm{N}\left(\mathbf{0}, \boldsymbol{I}_{2}\right)$. Then the innovations are modeled as 
 \begin{equation}
  \boldsymbol{w}_{t}=\boldsymbol{H}_{t}^{1 / 2} \boldsymbol{z}_{t},
@@ -466,7 +466,7 @@ $\theta$ & $1.515$ & $0.089$ & $17.058$ & $0.000$ \\
 \end{table}
 Monte Carlo paths are simulated with $\omega = 0.000118$, $\gamma=0.0999$, $\theta=1.5$, $\alpha=0$ and letting $\beta$ increase to 0.95 such that the process approaches nonstationarity. The simulation outcome is displayed in Table~\vref{tab:mc_grj-garch}. It is observed that under realistic volatility modeling, the right-tailed Bonferroni Q-test tends to over-reject the true null of no predictability. Even for the larger sample size of 100, the amount of over-rejection of the right-tailed Q-test at 5\% significance level surpasses 50\%. The null for the smaller sample size is over-rejected more than 100\%.
 
-\begin{table}[hbt]
+\begin{table}[h!]
 \centering
 \caption{Finite-sample rejection rates (common stochastic trend GJR-GARCH)}
 \label{tab:mc_grj-garch}
@@ -495,7 +495,7 @@ Monte Carlo paths are simulated with $\omega = 0.000118$, $\gamma=0.0999$, $\the
 \label{Empirical Results}
 \subsection{Replication of empirical results from Campbell and Yogo (2006)}
 Table~\vref{tab:cy_sp} replicates the key results of Tables 4 and 5 of Campbell and Yogo (2006). The Bonferroni Q-test is implemented as described in section $\ref{implementation}$. The regressors under consideration are the dividend-to-price ratio [ldp] and the earnings-to-price ratio [lep] where earnings, following Shiller (2000), are averaged over a moving 10-year period. Three different sampling frequencies, annual, quarterly, and monthly, are considered. Following Campbell and Yogo (2006), the confidence interval for $\beta$ is scaled by $\widehat{\sigma}_{e} / \widehat{\sigma}_{u}$ such that interpretation is made easier as the coefficient in equation $\ref{eqn:1}$ with unit variance innovations. Right-tailed tests with null hypothesis $H_0: \beta=0$ against alternative $H_1: \beta>0$ are considered where the null is rejected at 5\% significance level if the lower bound of $\beta$'s 90\% confidence interval is greater than zero. Apart from rounding errors, the results are nearly the same except for the following discrepancies. First, the DF-GLS statistic for $p>1$ is higher than reported by Campbell and Yogo (2006).  As previously mentioned, the DF-GLS implementation of section $\ref{implementation}$ was verified with a different open-source implementation. Second, based on the BIC, a lower $p$ of 1 was selected for monthly ldp. Investigations showed that the difference in BIC when $p=1$ compared with $p=2$ is very small. Thus the different selection is likely due to rounding errors. 
-\begin{table}[hb]
+\begin{table}[h!]
 \small
 \setlength\tabcolsep{5.3pt}
 \centering
@@ -522,10 +522,10 @@ dataset & $x$ & obs & $\hat{\delta}$ & $CI_{\rho}$ & DF-GLS & $p$ &t-stat & pt &
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
-For all datasets, both regressors are highly negatively correlated with returns. The confidence interval for $\rho$ is very near to unity in all cases, and containing it in some. Hence, the pretest of section $\ref{pretest}$ indicates non-standard null distribution of the t-test for every sampling frequency and regressor, invalidating inference based on t-statistics, which otherwise would be statistically significant. Based on the Bonferroni Q-test, the null hypothesis of no predictability can be rejected at the 5\% significance level for ldp and lep at the annual sampling frequency and for all datasets, respectively, using data from Campbell and Yogo (2006). 
+For all datasets, both regressors are highly negatively correlated with returns. The confidence interval for $\rho$ is very near to unity in all cases, and containing it in some. Hence, the pretest of section $\ref{pretest}$ indicates non-standard null distribution of the t-test for every sampling frequency and regressor, invalidating inference based on t-statistics, which otherwise would be statistically significant. Based on the Bonferroni Q-test, the null hypothesis of no predictability can be rejected at the 5\% significance level for ldp and lep at the annual sampling frequency and for all datasets, respectively. 
 \subsection{Out-of-sample results}
 Based on an extended dataset taken from Amid Goyal's website, only lep on a quarterly frequency can be inferred to be predictive of excess log-returns. This discrepancy may arise from two causes. First, returns in the extended dataset are of the S\&P500 instead of the CRSP value-weighted index. Also, due to the lack of availability of the 1-month T-bill rate, all risk free-rate computations are based on the 3-month T-bill in the extended dataset. This introduces minor differences in datasets since Campbell and Yogo (2006) use the 1-month T-bill as a risk-free proxy for their monthly regressions. Second, as will be seen in Table~\vref{tab:oos}, predictability seems to have been weakening in recent years. Hence, a time-extended sample will show less evidence of it.  
-\begin{table}[h]
+\begin{table}[h!]
 \small
 \setlength\tabcolsep{5.3pt}
 \centering
@@ -561,7 +561,7 @@ $p$ denotes the optimal number of lags selected by BIC. pt is a boolean denoting
 \end{table}
 
 Since the original publication of Campbell and Yogo (2006) a sufficiently large amount of data has been generated at the quarterly and monthly sampling frequencies that merits a standalone out-of-sample analysis. Table~\vref{tab:oos} displays model parameter estimates since 2004 until the last available data point in 2017. This relatively small dataset allows no rejection of the null hypothesis at the 5\% significance level for any of the regressors and sampling frequencies considered. Both regressors are still highly persistent at all sampling frequencies, demonstrated by the confidence interval for $\rho$ containing unity in all cases. 
-\begin{table}[h]
+\begin{table}[h!]
 \small
 \setlength\tabcolsep{5.3pt}
 \centering
