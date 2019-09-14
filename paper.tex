@@ -1,11 +1,11 @@
 
-\documentclass[11pt, a4paper]{article}
+\documentclass[12pt, a4paper]{article}
 \usepackage[onehalfspacing]{setspace}
 \usepackage{amsmath}
 \usepackage{mathrsfs}  
 \usepackage{float}
 \usepackage{varioref}
-\usepackage[margin=1.25in]{geometry}
+\usepackage[margin=1.1in]{geometry}
 \usepackage[round]{natbib}
 
 
@@ -38,11 +38,11 @@ x_{t} = \gamma + \rho  x_{t-1} + e_{t}.
 \end{align}
 They further assume normality, i.e., 
 \begin{equation}
-w_{t}=\left(u_{t}, e_{t}\right)^{\prime} \stackrel{i i d}{\sim} \mathrm{N}(\boldsymbol{0}, \boldsymbol{\Sigma})
+w_{t}=\left(u_{t}, e_{t}\right)^{\prime} \stackrel{i i d}{\sim} \mathrm{N}(\boldsymbol{0}, \boldsymbol{\Sigma}),
 \end{equation} where  $\boldsymbol{\Sigma}=\left[\begin{array}{cc}{\sigma_{u}^{2}} & {\sigma_{u e}} \\ {\sigma_{u e}} & {\sigma_{e}^{2}}\end{array}\right]$ is known.
 
 
-Whether $x_{t-1}$ is indeed predictive may be ascertained by evaluating the statistically significance of the $\beta$ coefficient obtained from an ordinary least squares [OLS] regression, i.e., testing the null hypothesis $H_0: \beta = 0$. A common approach is to perform a t-test of $\beta$. \citet{elliott1994inference}, however, show that the t-test leads to invalid inference if $x_{t}$ is persistent, i.e., if $\rho$ is close to unity, and the noise terms $u_{t}$ and $e_{t}$ are highly correlated. Since the regressor is a valuation ratio, which is a function of the stock price, and the regressand is the stock's return, which is also a function of the current price, there is strong reason to believe that $u_{t}$ and $e_{t}$ will indeed be highly (negatively) correlated. Sample correlations, $\hat{\delta}$, in Table~\vref{tab:cy_sp} will confirm this belief. It will also be seen that the regressor is highly persistent, manifested by the 90\% confidence interval for the largest autoregressive root containing unity. Hence, worry about the validity of the t-test is justified. A pretest, testing the null of the actual size of the t-test being unacceptably larger than nominal size $\alpha$ based on the joint presence of both aforementioned conditions, is explained in more detail in section $\ref{pretest}$.
+Whether $x_{t-1}$ is indeed predictive may be ascertained by evaluating the statistically significance of the $\beta$ coefficient obtained from an ordinary least squares [OLS] regression, i.e., testing the null hypothesis $H_0: \beta = 0$. A naïve approach is to perform a t-test of $\beta$. \citet{elliott1994inference}, however, show that the t-test leads to invalid inference if $x_{t}$ is persistent, i.e., if $\rho$ is close to unity, and the noise terms $u_{t}$ and $e_{t}$ are highly correlated. Since the regressor is a valuation ratio, which is a function of the stock price, and the regressand is the stock's return, which is also a function of the current price, there is strong reason to believe that $u_{t}$ and $e_{t}$ will indeed be highly (negatively) correlated. Sample correlations, $\hat{\delta}$, in Table~\vref{tab:cy_sp} will confirm this belief. It will also be seen that the regressor is highly persistent, manifested by the 90\% confidence interval for the largest autoregressive root containing unity. Hence, worry about the validity of the t-test is justified. A pretest, testing the null of the actual size of the t-test being unacceptably larger than nominal size $\alpha$ based on the joint presence of both aforementioned conditions, is explained in more detail in section $\ref{pretest}$.
 
 \section{Derivation of the tests}
 \label{Derivation of the tests}
@@ -52,7 +52,7 @@ In developing their test, \citet{campbell2006efficient} start by considering the
 \begin{equation}
 t\left(\beta_{0}\right)=\frac{\widehat{\beta}-\beta_{0}}{\sigma_{u}\left(\sum_{t=1}^{T} x_{t-1}^{\mu 2}\right)^{-1 / 2}},
 \end{equation}
-where $x_{t-1}^{\mu}=x_{t-1}-T^{-1} \sum_{t=1}^{T} x_{t-1}$ denotes the demeaned regressor and $\widehat{\beta}$ is the OLS estimate of $\beta$. They argue that this test ignores information contained in the system ($\ref{eqn:1}$, $\ref{eqn:2}$) and can thus not be optimal. To see this, consider the joint log likelihood function of the system ($\ref{eqn:1}$, $\ref{eqn:2}$)
+where $x_{t-1}^{\mu}=x_{t-1}-T^{-1} \sum_{t=1}^{T} x_{t-1}$ denotes the demeaned regressor and $\widehat{\beta}$ is the OLS estimate of $\beta$. They argue that this test ignores information contained in the system ($\ref{eqn:1}$, $\ref{eqn:2}$) and thus cannot be optimal. To see this, consider the joint log likelihood function of the system ($\ref{eqn:1}$, $\ref{eqn:2}$)
 \begin{equation}
 \begin{aligned} L(\beta, \rho, \alpha, \gamma)=&-\frac{1}{1-\delta^{2}} \sum_{t=1}^{T}\left[\frac{\left(r_{t}-\alpha-\beta x_{t-1}\right)^{2}}{\sigma_{u}^{2}}-2 \delta \frac{\left(r_{t}-\alpha-\beta x_{t-1}\right)\left(x_{t}-\gamma-\rho x_{t-1}\right)}{\sigma_{u} \sigma_{e}}\right.\\ &\left.+\frac{\left(x_{t}-\gamma-\rho x_{t-1}\right)^{2}}{\sigma_{e}^{2}}\right] \end{aligned}
 \end{equation}
@@ -66,7 +66,7 @@ L(\beta, \alpha)=-\sum_{t=1}^{T}\left(r_{t}-\alpha-\beta x_{t-1}\right)^{2}
 \end{equation}
 is used in its computation. Thus, the t-test ignores information about $\rho$.
 
-To reason about how to incorporate information about $\rho$ into the test \citet{campbell2006efficient} assume $\rho$ to be known at first. If, further, the assumption $\alpha=\gamma=0$ is made, the only unknown variable that remains is $\beta$. Now, the likelihood function can be denoted as $L(\beta)$. If one restricts oneself to consider only the simple alternative of the form $\beta=\beta_{1}$ one can reason by the Neyman–Pearson Lemma that the most powerful test is of the form
+To reason about how to incorporate information about $\rho$ into the test, \citet{campbell2006efficient} assume $\rho$ to be known at first. If, further, the assumption $\alpha=\gamma=0$ is made, the only unknown variable that remains is $\beta$. Now, the likelihood function can be denoted as $L(\beta)$. If one restricts oneself to consider only the simple alternative of the form $\beta=\beta_{1}$ one can reason by the Neyman–Pearson Lemma that the most powerful test is of the form
 \begin{equation}
 \begin{aligned} \sigma_{u}^{2}\left(1-\delta^{2}\right)\left(L\left(\beta_{1}\right)-L\left(\beta_{0}\right)\right) = & 2\left(\beta_{1}-\beta_{0}\right) \sum_{t=1}^{T} x_{t-1}\left[r_{t}-\beta_{u e}\left(x_{t}-\rho x_{t-1}\right)\right] \\ &-\left(\beta_{1}^{2}-\beta_{0}^{2}\right) \sum_{t=1}^{T} x_{t-1}^{2}>C, \end{aligned}
 \end{equation}
@@ -468,7 +468,7 @@ $\theta$ & $1.515$ & $0.089$ & $17.058$ & $0.000$ \\
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
-Monte Carlo paths are simulated with $\omega = 0.000118$, $\gamma=0.0999$, $\theta=1.5$, $\alpha=0$ and letting $\beta$ increase to 0.95 such that the process approaches nonstationarity. The simulation outcome is displayed in Table~\vref{tab:mc_grj-garch}. It is observed that under realistic volatility modeling, the right-tailed Bonferroni Q-test tends to over-reject the true null of no predictability. Even for the larger sample size of 100, the amount of over-rejection of the right-tailed Q-test at 5\% significance level surpasses 50\%. The null for the smaller sample size is over-rejected more than 100\%. For very large sample sizes of more than 1000 observations, a single spike of over-rejection is found when the GARCH process is very near nonstationary. Otherwise, rejection rates are close to the nominal size.
+Monte Carlo paths are simulated with $\omega = 0.000118$, $\gamma=0.0999$, $\theta=1.5$, $\alpha=0$ and letting $\beta$ increase to 0.95 such that the process approaches nonstationarity. The simulation outcome is displayed in Table~\vref{tab:mc_grj-garch}. It is observed that under realistic volatility modeling, the right-tailed Bonferroni Q-test tends to over-reject the true null of no predictability. Even for the larger sample size of 100, the amount of over-rejection of the right-tailed Q-test at 5\% significance level surpasses 50\%. The null for the smaller sample size is over-rejected more than 100\%. For very large sample sizes of more than 1000 observations, a single spike of over-rejection is found when the GARCH process is very near nonstationarity. Otherwise, rejection rates are close to the nominal size.
 
 \begin{table}[h!]
 \centering
@@ -502,7 +502,7 @@ Monte Carlo paths are simulated with $\omega = 0.000118$, $\gamma=0.0999$, $\the
 Table~\vref{tab:cy_sp} replicates the key results of Tables 4 and 5 of \citet{campbell2006efficient}. The Bonferroni Q-test is implemented as described in section $\ref{implementation}$. The regressors under consideration are the dividend-to-price ratio [ldp] and the earnings-to-price ratio [lep], where earnings, following \citet{shiller2000irrational}, are averaged over a moving 10-year period. Three different sampling frequencies, annual, quarterly, and monthly, are considered. Following \citet{campbell2006efficient}, the confidence interval for $\beta$ is scaled by $\widehat{\sigma}_{e} / \widehat{\sigma}_{u}$ such that interpretation is made easier as the coefficient in equation ($\ref{eqn:1}$) with unit variance innovations. Right-tailed tests with null hypothesis $H_0: \beta=0$ against alternative $H_1: \beta>0$ are considered, where the null is rejected at 5\% significance level if the lower bound of $\beta$'s 90\% confidence interval is greater than zero. Apart from rounding errors, the results are nearly the same except for the following discrepancies. First, the DF-GLS statistic for $p>1$ is higher than reported by \citet{campbell2006efficient}.  As previously mentioned, the DF-GLS implementation of section $\ref{implementation}$ was verified with a different open-source implementation. Second, based on the BIC, a lower $p$ of 1 was selected for monthly ldp. Investigations showed that the difference in BIC when $p=1$ compared with $p=2$ is very small. Thus the different selection is likely due to rounding errors. 
 \begin{table}[h!]
 \small
-\setlength\tabcolsep{5.3pt}
+\setlength\tabcolsep{5.0pt}
 \centering
 \caption{Replicated estimates of model parameters from \citet{campbell2006efficient}}
 \label{tab:cy_sp}
@@ -529,10 +529,10 @@ dataset & $x$ & obs & $\hat{\delta}$ & $CI_{\rho}$ & DF-GLS & $p$ &t-stat & pt &
 \end{table}
 For all datasets, both regressors are highly negatively correlated with returns. The confidence interval for $\rho$ is very near to unity in all cases, and containing it in some. Hence, the pretest of section $\ref{pretest}$ indicates non-standard null distribution of the t-test for every sampling frequency and regressor, invalidating inference based on t-statistics, which otherwise would be statistically significant. Based on the Bonferroni Q-test, the null hypothesis of no predictability can be rejected at the 5\% significance level for ldp and lep at the annual sampling frequency and for all datasets, respectively. 
 \subsection{Out-of-sample results}
-Based on an extended dataset taken from Amid Goyal's website, only lep on a quarterly frequency can be inferred to be predictive of excess log-returns. This discrepancy may arise from two causes. First, returns in the extended dataset are of the S\&P500 instead of the CRSP value-weighted index. Also, due to the lack of availability of the 1-month T-bill rate, all risk free-rate computations are based on the 3-month T-bill in the extended dataset. This introduces minor differences in datasets since \citet{campbell2006efficient} use the 1-month T-bill as a risk-free proxy for their monthly regressions. Second, as will be seen in Table~\vref{tab:oos}, predictability seems to have been weakening in recent years. Hence, a time-extended sample will show less evidence of it.  
+Based on an extended dataset taken from Amid Goyal's website, Table~\vref{tab:extended} shows that only lep on a quarterly frequency can be inferred to be predictive of excess log-returns. This discrepancy may arise from two causes. First, returns in the extended dataset are of the S\&P500 instead of the CRSP value-weighted index. Also, due to the lack of availability of the 1-month T-bill rate, all risk free-rate computations are based on the 3-month T-bill in the extended dataset. This introduces minor differences in datasets since \citet{campbell2006efficient} use the 1-month T-bill as a risk-free proxy for their monthly regressions. Second, as will be seen in Table~\vref{tab:oos}, predictability seems to have been weakening in recent years. Hence, a time-extended sample will show less evidence of it.  
 \begin{table}[h!]
 \small
-\setlength\tabcolsep{5.3pt}
+\setlength\tabcolsep{5.0pt}
 \centering
 \caption{Replicated estimates of model parameters from \citet{campbell2006efficient} with an extended dataset}
 \label{tab:extended}
@@ -568,7 +568,7 @@ $p$ denotes the optimal number of lags selected by BIC. pt is a boolean denoting
 Since the original publication of \citet{campbell2006efficient} a sufficiently large amount of data has been generated at the quarterly and monthly sampling frequencies that merits a standalone out-of-sample analysis. Table~\vref{tab:oos} displays model parameter estimates since 2004 until the last available data point in 2017. This relatively small dataset allows no rejection of the null hypothesis at the 5\% significance level for any of the regressors and sampling frequencies considered. Both regressors are still highly persistent at all sampling frequencies, demonstrated by the confidence interval for $\rho$ containing unity in all cases. 
 \begin{table}[h!]
 \small
-\setlength\tabcolsep{5.3pt}
+\setlength\tabcolsep{5.0pt}
 \centering
 \caption{Out-of-sample estimates of model parameters}
 \label{tab:oos}
