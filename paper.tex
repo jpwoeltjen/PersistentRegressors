@@ -332,7 +332,7 @@ As argued by \citet{phillips2014confidence}, the feasible Q-test as derived in S
 \subsection{Simulation with CCC-GARCH innovations}
 \label{Simulation with CCC-GARCH innovations}
 \citet{campbell2006efficient} evaluate the robustness of the Q-test under a fat-tailed distribution. In particular, they find finite-sample rejection probabilities to be unchanged from the Gaussian case when the innovations follow a Student t-distribution with five degrees of freedom. As shown by \citet{cavaliere2005unit}, unit root tests may be invalid under conditional heteroskedasticity. Assumptions in the form of Equation ($\ref{eqn:covarst}$) imply validity of the Q-test under conditionally heteroskedastic innovations only if they are covariance stationary. 
-It is therefore interesting to observe the behavior of the Bonferroni Q-test if innovations are modeled by a generalized autoregressive conditional heteroskedasticity [GARCH] process that approaches covariance nonstationarity. If the regressor is a valuation ratio, it seems sensible that there is a more or less stable correlation between the regressor and stock returns. A multivariate GARCH model that allows such a restriction is the Constant Conditional Correlations GARCH  [CCC-GARCH] model of \citet{bollerslev1990modelling}. It is defined as follows. Let $ \boldsymbol{z_{t}}$ be a bivariate standard normal random variable, i.e., $ \boldsymbol{z}_{t} \stackrel{i i d}{\sim} \mathrm{N}\left(\mathbf{0}, \boldsymbol{I}_{2}\right)$. Then the innovations are modeled as 
+It is therefore interesting to observe the behavior of the Bonferroni Q-test if innovations are modeled by a generalized autoregressive conditional heteroskedasticity [GARCH] process of \citet{bollerslev1986generalized} that approaches covariance nonstationarity. If the regressor is a valuation ratio, it seems sensible that there is a more or less stable correlation between the regressor and stock returns. A multivariate GARCH model that allows such a restriction is the Constant Conditional Correlations GARCH  [CCC-GARCH] model of \citet{bollerslev1990modelling}. It is defined as follows. Let $ \boldsymbol{z_{t}}$ be a bivariate standard normal random variable, i.e., $ \boldsymbol{z}_{t} \stackrel{i i d}{\sim} \mathrm{N}\left(\mathbf{0}, \boldsymbol{I}_{2}\right)$. Then the innovations are modeled as 
 \begin{equation}
  \boldsymbol{w}_{t}=\boldsymbol{H}_{t}^{1 / 2} \boldsymbol{z}_{t},
 \end{equation}
@@ -351,7 +351,7 @@ and $\boldsymbol{R}_{t}$ being the positive definite conditional correlation mat
 \end{equation}
 Since correlations are assumed to be constant through time, $\boldsymbol{R}_{t}=\boldsymbol{R}$. The conditional variances 
 $${h}_{i t}^{2}, \quad t=1, \ldots, T, \quad i=1, 2$$
-in $\boldsymbol{D}_{t}$ are modeled by independent univariate GARCH processes, i.e.,
+in $\boldsymbol{D}_{t}$ are modeled by independent univariate GARCH processes according to \citet{bollerslev1986generalized}, i.e.,
 \begin{equation}
 \label{eqn:garch}
 \begin{aligned} \epsilon_{t} &=h_{t} \eta_{t}, \quad \eta_{t} \stackrel{i i d}{\sim}N(0,1) \\ h_{t}^{2} &=\omega+\sum_{i=1}^{q} \alpha_{i} \epsilon_{t-i}^{2}+\sum_{i=1}^{p} \beta_{i} h_{t-i}^{2} \\ \omega &>0, \quad \alpha_{i} \geq 0, \quad i=1, \ldots, q, \quad \beta_{i} \geq 0, \quad i=1, \ldots, p. \end{aligned}
